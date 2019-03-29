@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2308186521F5C5D00091EA18 /* Array.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2308186321F5C5D00091EA18 /* Array.cpp */; };
+		2308186821F5C5E50091EA18 /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2308186621F5C5E50091EA18 /* String.cpp */; };
 		2336778D21CE44B0000091AA /* Queue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2336778B21CE44B0000091AA /* Queue.cpp */; };
 		23806CF121C128A6008C1836 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23806CF021C128A6008C1836 /* main.cpp */; };
 		23A9909E21CBB39500835701 /* BinaryTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23A9909C21CBB39500835701 /* BinaryTree.cpp */; };
@@ -27,6 +29,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2308186321F5C5D00091EA18 /* Array.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Array.cpp; sourceTree = "<group>"; };
+		2308186421F5C5D00091EA18 /* Array.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Array.hpp; sourceTree = "<group>"; };
+		2308186621F5C5E50091EA18 /* String.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = String.cpp; sourceTree = "<group>"; };
+		2308186721F5C5E50091EA18 /* String.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = String.hpp; sourceTree = "<group>"; };
 		2336778B21CE44B0000091AA /* Queue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Queue.cpp; sourceTree = "<group>"; };
 		2336778C21CE44B0000091AA /* Queue.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Queue.hpp; sourceTree = "<group>"; };
 		23806CED21C128A6008C1836 /* FastAlgorithm */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FastAlgorithm; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,12 +78,16 @@
 				23806CF021C128A6008C1836 /* main.cpp */,
 				23FEC72121C26A8D008891C9 /* LinkList.cpp */,
 				23FEC72221C26A8D008891C9 /* LinkList.hpp */,
+				2308186321F5C5D00091EA18 /* Array.cpp */,
+				2308186421F5C5D00091EA18 /* Array.hpp */,
 				23A9909C21CBB39500835701 /* BinaryTree.cpp */,
 				23A9909D21CBB39500835701 /* BinaryTree.hpp */,
 				2336778B21CE44B0000091AA /* Queue.cpp */,
 				2336778C21CE44B0000091AA /* Queue.hpp */,
 				23E8B79721E5E98A00FD446F /* Sort.cpp */,
 				23E8B79821E5E98A00FD446F /* Sort.hpp */,
+				2308186621F5C5E50091EA18 /* String.cpp */,
+				2308186721F5C5E50091EA18 /* String.hpp */,
 			);
 			path = FastAlgorithm;
 			sourceTree = "<group>";
@@ -140,9 +150,11 @@
 			files = (
 				23806CF121C128A6008C1836 /* main.cpp in Sources */,
 				23FEC72321C26A8D008891C9 /* LinkList.cpp in Sources */,
+				2308186821F5C5E50091EA18 /* String.cpp in Sources */,
 				23A9909E21CBB39500835701 /* BinaryTree.cpp in Sources */,
 				2336778D21CE44B0000091AA /* Queue.cpp in Sources */,
 				23E8B79921E5E98A00FD446F /* Sort.cpp in Sources */,
+				2308186521F5C5D00091EA18 /* Array.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,7 +212,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -253,7 +265,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;

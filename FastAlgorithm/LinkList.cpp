@@ -15,6 +15,47 @@ struct ListNode {
     int m_nValue;
     ListNode *m_pNext;
 };
+//面试题37:两个链表的第一个公共节点
+//思路:长的链表的指针先向前走n步,然后两个指针同时向前走，直至遇到第一个相同的节点
+unsigned int GetListLength(ListNode *pHead) {
+    unsigned int length = 0;
+    ListNode *node = pHead;
+    while (node->m_pNext != NULL) {
+        ++length;
+        node = node->m_pNext;
+    }
+    return length;
+}
+
+ListNode *findFirstCommonNode(ListNode *pHead1, ListNode *pHead2) {
+    unsigned int length1 = GetListLength(pHead1);
+    unsigned int length2 = GetListLength(pHead2);
+
+    int diffLength = length1 - length2;
+    ListNode *pListLong = pHead1;
+    ListNode *pListShort = pHead2;
+    
+    if (diffLength < 0) {
+        diffLength = length2 - length1;
+        pListLong = pHead2;
+        pListShort = pHead1;
+    }
+    //长的链表的指针先向前走n步
+    for (int i = 0; i < diffLength; ++i) {
+        pListLong = pListLong->m_pNext;
+    }
+    while (pListLong->m_pNext != NULL &&
+           pListShort->m_pNext != NULL &&
+           pListLong->m_nValue != pListShort->m_nValue) {
+        pListShort = pListShort->m_pNext;
+        pListLong = pListLong->m_pNext;
+    }
+    ListNode *node = pListLong;
+    
+    return node;
+}
+
+
 //尾部插入,当链表为空时，新插入的节点就是链表的头指针，此时需要修改头指针
 void AddToTail(ListNode **pHead, int value) {
     ListNode *node = new ListNode();
@@ -136,3 +177,21 @@ ListNode* Merge(ListNode *pHead1, ListNode *pHead2) {
     return pMergedHead;
 }
 
+//反转链表
+ListNode* ReverseList(ListNode *pHead) {
+    ListNode *pReversedHead = NULL;
+    ListNode *pNode = pHead;
+    ListNode *pPrev = NULL;
+    while (pNode != NULL) {
+        ListNode *pNext = pNode->m_pNext;
+        if (pNext == NULL) {
+            pReversedHead = pNode;
+        }
+        pNode->m_pNext = pPrev;
+        
+        pPrev = pNode;
+        pNode = pNext;
+    }
+    return pReversedHead;
+    
+}
