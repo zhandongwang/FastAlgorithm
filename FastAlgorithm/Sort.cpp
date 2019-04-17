@@ -93,16 +93,16 @@ void BubbleSort(int a[], int len) {
 
 
 
-int main(int argc, const char * argv[]) {
-//    int array[6] = {1,2,4,6,9};
-//    BinaryS(array,5,1);
-    int a[10] = {6,1,2,7,9, 3, 4, 5, 10, 8};
-//    quicksort(a, 0, 9);
-    BubbleSort(a, 10);
-    
-    for (int i = 0; i < 10; ++i) {
-        cout << a[i] << "\t";
-    }
-    cout <<endl;
-    
-}
+//int main(int argc, const char * argv[]) {
+////    int array[6] = {1,2,4,6,9};
+////    BinaryS(array,5,1);
+//    int a[10] = {6,1,2,7,9, 3, 4, 5, 10, 8};
+////    quicksort(a, 0, 9);
+//    BubbleSort(a, 10);
+//    
+//    for (int i = 0; i < 10; ++i) {
+//        cout << a[i] << "\t";
+//    }
+//    cout <<endl;
+//    
+//}

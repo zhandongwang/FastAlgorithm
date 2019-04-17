@@ -20,7 +20,7 @@ typedef struct BinarySearchTreeNode {
     BinarySearchTreeNode* parent;
 }*BSTree;
 
-//二叉搜索树的插入
+//MARK:二叉搜索树的插入
 int BST_Insert(BSTree &T, int k, BinarySearchTreeNode *parent=NULL) {
     if (T == NULL) {//空树
         T = (BSTree)malloc(sizeof(BinarySearchTreeNode));
@@ -39,11 +39,7 @@ int BST_Insert(BSTree &T, int k, BinarySearchTreeNode *parent=NULL) {
 }
 
 
-/**
- 构建二叉搜索树
- @param arr 待插入的数据元素
- @param n 数组长度
- */
+//MARK: 构建二叉搜索树
 void Create_BST(BSTree &T, int arr[], int n) {
     T = NULL; //初始化一颗空树
     for (int i = 0; i < n; ++i) {
@@ -51,9 +47,7 @@ void Create_BST(BSTree &T, int arr[], int n) {
     }
 }
 
-/**
- 二叉搜索树查找
- */
+//MARK:二叉搜索树查找
 BinarySearchTreeNode* BST_Search(BSTree T, int k) {
     if (T == NULL || k == T->key) {
         return T;
@@ -77,7 +71,7 @@ BinarySearchTreeNode* BST_Search_NonRecur(BSTree T, int k) {
     return T;
 }
 
-//二叉搜索树的最大最小值
+//MARK:二叉搜索树的最大最小值
 BinarySearchTreeNode* BST_Minimum(BSTree T){
     while (T->left != NULL) {
         T = T->left;
@@ -93,7 +87,7 @@ BinarySearchTreeNode* BST_Maximum(BSTree T) {
 }
 
 
-//给定一个二叉树的节点，求出它在中序遍历中的前驱与后继。如果所有关键字都不相同，则
+//MARK:给定一个二叉树的节点，求出它在中序遍历中的前驱与后继。如果所有关键字都不相同，则
 //某节点x的后继是:
 //1.若x的右子树不为空，则x的后继是它的右子树中Key最小的节点
 //2.若x的右子树为空，为了寻找其后继，从x开始向上查找，知道遇到一个祖先节点y,y的左儿子也是x的祖先，则y就是x的后继
@@ -124,14 +118,52 @@ BinarySearchTreeNode* BST_Predecessor(BinarySearchTreeNode *node){
 }
 
 
-
+//MARK:二叉树结构
 struct BinaryTreeNode {
     int m_nValue;
     BinaryTreeNode *m_pLeft;
     BinaryTreeNode *m_pRight;
+    BinaryTreeNode(int x):m_nValue(x),m_pLeft(NULL), m_pRight(NULL){}
 };
 
-//面试题38:数字在排序数组中出现的次数
+//MARK:leetcode 993. 二叉树的堂兄弟节点(Cousins in Binary Tree)
+bool getPath(BinaryTreeNode* root, int x, vector<int>& path) {
+    if (root == NULL) {
+        return false;
+    } else {
+        path.push_back(root->m_nValue);
+        if (root->m_nValue != x) {
+            if (getPath(root->m_pLeft, x, path)) {
+                return true;
+            }
+            if (getPath(root->m_pRight, x, path)) {
+                return true;
+            }
+            path.pop_back();
+            return false;
+            
+        } else {
+            return true;
+        }
+        
+    }
+}
+
+bool isCousins(BinaryTreeNode* root, int x, int y)
+{
+    vector<int> path1, path2;
+    getPath(root, x, path1);
+    getPath(root, y, path2);
+    if (path1.size() != path2.size()) {
+        return false;
+    } else {
+        path1.pop_back();
+        path2.pop_back();
+        //父节点不相同
+        return path1.back() != path2.back();
+    }
+}
+
 //查找第一个k
 int GetFirstK(int *data, int length, int k, int start ,int end) {
     if (start > end) {
@@ -153,7 +185,7 @@ int GetFirstK(int *data, int length, int k, int start ,int end) {
     }
     return GetFirstK(data, length, k, start, end);
 }
-//查找最后一个k
+//MARK:查找最后一个k
 int GetLastK(int *data, int length, int k, int start ,int end) {
     if (start > end) {
         return -1;
@@ -174,7 +206,7 @@ int GetLastK(int *data, int length, int k, int start ,int end) {
     }
     return GetLastK(data, length, k, start, end);
 }
-
+//MARK:面试题38:数字在排序数组中出现的次数
 int GetNumberOfK(int *data, int length, int k) {
     int number = 0;
     if (data != NULL && length > 0) {
@@ -188,7 +220,7 @@ int GetNumberOfK(int *data, int length, int k) {
     return number;
 }
 
-//面试题24:二叉搜索树的后序遍历序列：输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历序列
+//MARK:面试题24:二叉搜索树的后序遍历序列：输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历序列
 //最后一个数字是根节点，数组中前面的数字可以分为2组，
 //第一部分是左子树，都比根节点小
 //第二部分是右子树，都比根节点大
@@ -222,7 +254,7 @@ bool VerifySequenceOfBST(int sequence[], int length) {
 }
 
 
-//面试题23:从上往下打印二叉树
+//MARK:面试题23:从上往下打印二叉树
 //思路:每次打印一个节点的时候，若果该节点有子节点，则把该节点的子节点入队。
 //然后从队列头部取出一个节点
 void PrintBinaryTreeTopToBottom(BinaryTreeNode *pRoot) {
@@ -246,12 +278,9 @@ void PrintBinaryTreeTopToBottom(BinaryTreeNode *pRoot) {
     }
 }
 
-//构建二叉树
+//MARK:构建二叉树
 void InsertNode(BinaryTreeNode *pRoot, int value) {
-    BinaryTreeNode *node = new BinaryTreeNode();
-    node->m_nValue = value;
-    node->m_pLeft = NULL;
-    node->m_pRight= NULL;
+    BinaryTreeNode *node = new BinaryTreeNode(value);
     
     if (pRoot == NULL) {
         pRoot = node;
@@ -272,7 +301,7 @@ void InsertNode(BinaryTreeNode *pRoot, int value) {
     }
 }
 
-//前序遍历二叉树递归实现
+//MARK:前序遍历二叉树递归实现
 void PreOrderBinaryTreeRecursive(BinaryTreeNode *pRoot) {
     if (pRoot == NULL) {
         return;
@@ -281,7 +310,7 @@ void PreOrderBinaryTreeRecursive(BinaryTreeNode *pRoot) {
     PreOrderBinaryTreeRecursive(pRoot->m_pLeft);
     PreOrderBinaryTreeRecursive(pRoot->m_pRight);
 }
-//前序遍历二叉树非递归实现
+//MARK:前序遍历二叉树非递归实现
 void PreOrderBinaryTreeNoRecursive(BinaryTreeNode *pRoot) {
     if (pRoot == NULL) {
         return;
@@ -300,7 +329,7 @@ void PreOrderBinaryTreeNoRecursive(BinaryTreeNode *pRoot) {
         }
     }
 }
-//中序遍历二叉树递归实现
+//MARK:中序遍历二叉树递归实现
 void InOrderBinaryTreeRecursive(BinaryTreeNode *root) {
     if (root == NULL) {
         return;
@@ -310,7 +339,7 @@ void InOrderBinaryTreeRecursive(BinaryTreeNode *root) {
     InOrderBinaryTreeRecursive(root->m_pRight);
 }
 
-//中序遍历二叉树非递归实现
+//MARK:中序遍历二叉树非递归实现
 void InOrderBinaryTreeNoRecursive(BinaryTreeNode *root) {
     if (root == NULL) {
         return;
@@ -330,7 +359,7 @@ void InOrderBinaryTreeNoRecursive(BinaryTreeNode *root) {
     }
 }
 
-//后序遍历二叉树递归实现
+//MARK:后序遍历二叉树递归实现
 void PostOrderBinaryTreeRecursive(BinaryTreeNode *root) {
     if (root == NULL) {
         return;
@@ -339,7 +368,7 @@ void PostOrderBinaryTreeRecursive(BinaryTreeNode *root) {
     PostOrderBinaryTreeRecursive(root->m_pRight);
     cout << root->m_nValue << endl;
 }
-//后序遍历二叉树非递归实现
+//MARK:后序遍历二叉树非递归实现
 void PostOrderBinaryTreeNoRecursive(BinaryTreeNode *root) {
     if (root == NULL) {
         return;
@@ -366,7 +395,7 @@ void PostOrderBinaryTreeNoRecursive(BinaryTreeNode *root) {
 
 }
 
-//面试题18，两颗二叉树A和B，判断B是不是A的子结构
+//MARK:面试题18，两颗二叉树A和B，判断B是不是A的子结构
 bool DoesTreeHasTree2(BinaryTreeNode *pRoot1, BinaryTreeNode *pRoot2) {
     if (pRoot2 == NULL) {
         return true;
@@ -396,12 +425,10 @@ bool HasSubTree(BinaryTreeNode *pRoot1, BinaryTreeNode *pRoot2) {
     return result;
 }
 
-//面试题6：根据前序遍历、中序遍历序列重建二叉树,假设序列中不含重复数字
+//MARK:面试题6：根据前序遍历、中序遍历序列重建二叉树,假设序列中不含重复数字
 BinaryTreeNode* ConstructCore(int *startPreOrder, int *endPreOrder, int *startInOrder, int *endInOrder) {
     int rootValue = startPreOrder[0];
-    BinaryTreeNode *root = new BinaryTreeNode();
-    root -> m_nValue = rootValue;
-    root -> m_pLeft = root -> m_pRight = NULL;
+    BinaryTreeNode *root = new BinaryTreeNode(rootValue);
     
     if (startPreOrder == endPreOrder) {
         //只有一个节点
@@ -444,28 +471,24 @@ BinaryTreeNode* Construct(int *preOrder, int *inOrder, int length) {
     return ConstructCore(preOrder, preOrder + length - 1, inOrder, inOrder + length - 1);
 }
 
-
-//int main(int argc, const char * argv[]) {
-    // insert code here...
-    //    char gretting[] = "Hello world";
-    //    cout << strlen(gretting);
-    //
-//    BinaryTreeNode *root = new BinaryTreeNode();
-//    root->m_nValue = 8;
-//    root->m_pLeft = NULL;
-//    root->m_pRight = NULL;
-//
-//    InsertNode(root, 6);
-//    InsertNode(root, 10);
-//    InsertNode(root, 5);
-//    InsertNode(root, 7);
-//    InsertNode(root, 9);
-//    InsertNode(root, 11);
-//
-//    PrintBinaryTreeTopToBottom(root);
+int main(int argc, const char * argv[]) {
+//     insert code here...
     
+    BinaryTreeNode *root = new BinaryTreeNode(8);
+
+    InsertNode(root, 6);
+    InsertNode(root, 10);
+    InsertNode(root, 5);
+    InsertNode(root, 7);
+    InsertNode(root, 9);
+    InsertNode(root, 11);
+    
+    cout<< isCousins(root, 5, 7) << endl;
+    
+//    PrintBinaryTreeTopToBottom(root);
+//
 //    int array[10] = {1,2,3,3,4,6,8,8,8,10};
 //    cout << GetNumberOfK(array, 10, 1) << endl;
-//
-//    return 0;
-//}
+
+    return 0;
+}
