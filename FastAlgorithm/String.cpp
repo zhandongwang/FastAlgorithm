@@ -68,7 +68,7 @@ int StrToInt(const char *str) {
     return (int)num;
 }
 
-//面试题42：反转字符串
+//面试题42：反转字符串  eg I am a student --> student a am I
 void ReverseWord(char *pBegin, char *pEnd) {
     if (pBegin == NULL || pEnd == NULL) {
         return;
@@ -111,7 +111,7 @@ char* ReverseSentence(char *pdata) {
     return pdata;
 }
 
-//面试题4:替换字符串中的空格  从后向前
+//面试题4:替换字符串中的空格为20%  从后向前
 void replaceBlank(char string[], int length) {
     if (string == NULL || length <= 0) {
         return;
@@ -119,6 +119,7 @@ void replaceBlank(char string[], int length) {
     int originalLength = 0;
     int numberOfBlank = 0;
     int i = 0;
+    //统计字符串长度和空格数
     while (string[i] != '\0') {
         ++originalLength;
         if (string[i] == ' ') {
@@ -126,6 +127,7 @@ void replaceBlank(char string[], int length) {
         }
         ++i;
     }
+    //
     int newLength = originalLength + numberOfBlank * 2;
     int indexOfOriginal = originalLength;
     int indexOfNew = newLength;

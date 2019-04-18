@@ -67,7 +67,7 @@ bool isEven(int n) {
     return (n & 1) == 0;
 }
 
-//面试题3:二维数组中查找
+//面试题3:二维数组中查找给定值
 bool findValue(int* matrix, int rows, int columns, int number) {
     bool found = false;
     

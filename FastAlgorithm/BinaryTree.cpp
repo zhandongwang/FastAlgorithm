@@ -395,7 +395,7 @@ void PostOrderBinaryTreeNoRecursive(BinaryTreeNode *root) {
 
 }
 
-//MARK:面试题18，两颗二叉树A和B，判断B是不是A的子结构
+
 bool DoesTreeHasTree2(BinaryTreeNode *pRoot1, BinaryTreeNode *pRoot2) {
     if (pRoot2 == NULL) {
         return true;
@@ -409,10 +409,12 @@ bool DoesTreeHasTree2(BinaryTreeNode *pRoot1, BinaryTreeNode *pRoot2) {
     return DoesTreeHasTree2(pRoot1->m_pLeft, pRoot2->m_pLeft) && DoesTreeHasTree2(pRoot1->m_pRight, pRoot2->m_pRight);
     
 }
-
+//MARK:面试题18，两颗二叉树A和B，判断B是不是A的子结构
 bool HasSubTree(BinaryTreeNode *pRoot1, BinaryTreeNode *pRoot2) {
     bool result = false;
+    //先在A中找到与B的根节点值相同的节点R
     if (pRoot1->m_nValue == pRoot2->m_nValue) {
+        //判断A中以R为根节点的子树是不是和B具有相同的结构
         result = DoesTreeHasTree2(pRoot1, pRoot2);
     }
     if (!result) {

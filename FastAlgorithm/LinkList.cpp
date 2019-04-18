@@ -135,7 +135,7 @@ void DeleteNode(ListNode **pListHead, ListNode *pToBeDeleted) {
         pToBeDeleted = NULL;
     }
 }
-//面试题15 链表中倒数第k个节点， 快慢指针
+//面试题15 链表中倒数第k个节点， 快慢指针,快指针先走k步
 ListNode *FindKthToTail(ListNode *pListHead, unsigned int k) {
     if (pListHead == NULL || k <= 0) {
         return NULL;
@@ -144,7 +144,7 @@ ListNode *FindKthToTail(ListNode *pListHead, unsigned int k) {
     for (unsigned int i = 0; i < k-1; ++i) {
         if (pFast->m_pNext != NULL) {
             pFast = pFast->m_pNext;
-        } else {//节点总数x少于k
+        } else {//节点总数少于k
             return NULL;
         }
     }
@@ -183,7 +183,7 @@ ListNode* ReverseList(ListNode *pHead) {
     ListNode *pNode = pHead;
     ListNode *pPrev = NULL;
     while (pNode != NULL) {
-        ListNode *pNext = pNode->m_pNext;
+        ListNode *pNext = pNode->m_pNext;//后一个节点
         if (pNext == NULL) {
             pReversedHead = pNode;
         }
