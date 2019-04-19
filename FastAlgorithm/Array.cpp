@@ -12,6 +12,9 @@
 #include <queue>
 #include <vector>
 #include <set>
+#include <string>
+#include <algorithm>
+
 using namespace std;
 
 int* mergeSortedArray(int nums1[], int m, int nums2[], int n) {
@@ -149,11 +152,38 @@ void testFindValue() {
     }
 }
 
+bool judge(char c) {
+    return ('A' <= c && c <= 'Z') || ('0' <= c && c <= '9');
+}
+//MARK:验证回文字
+bool testString(string str) {
+    if (str.empty()) {
+        return true;
+    }
+    long int i = 0, j = str.length()-1;
+    transform(str.begin(), str.end(), str.begin(), ::toupper);
+    while (i < j) {
+        while (i < j && !judge(str.at(i))) {
+            i++;
+        }
+        while (i < j && !judge(str.at(j))) {
+            j--;
+        }
+        cout << str.at(i) << "---" << str.at(j);
+        
+        if (str.at(i) != str.at(j)) {
+            return  false;
+        } else {
+            i++;
+            j--;
+        }
+    }
+    return true;
+}
+
+
 int main(int argc, const char * argv[]) {
     //     insert code here...
-    int array1[4] = {1,2,3,4};
-    int array2[3] = {5,6,7};
-    
-    p = mergeSortedArray(array1, 4, array2, 3);
+    cout << testString("Ama");
     return 0;
 }
