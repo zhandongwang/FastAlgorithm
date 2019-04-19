@@ -68,7 +68,7 @@ int StrToInt(const char *str) {
     return (int)num;
 }
 
-//面试题42：反转字符串  eg I am a student --> student a am I
+
 void ReverseWord(char *pBegin, char *pEnd) {
     if (pBegin == NULL || pEnd == NULL) {
         return;
@@ -82,6 +82,8 @@ void ReverseWord(char *pBegin, char *pEnd) {
     }
     
 }
+//面试题42：反转字符串  eg I am a student --> student a am I
+
 char* ReverseSentence(char *pdata) {
     if (pdata == NULL) {
         return NULL;
