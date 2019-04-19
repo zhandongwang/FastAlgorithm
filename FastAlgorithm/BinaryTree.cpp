@@ -10,9 +10,9 @@
 #include <iostream>
 #include <stack>
 #include <queue>
-
 using namespace std;
 
+//二叉搜索（排序）树：或者是一颗空树，或者是具有下列性质的二叉树：若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； 它的左、右子树也分别为二叉排序树。
 typedef struct BinarySearchTreeNode {
     int key;
     BinarySearchTreeNode* left;
@@ -373,6 +373,7 @@ void PostOrderBinaryTreeNoRecursive(BinaryTreeNode *root) {
     if (root == NULL) {
         return;
     }
+    //借助两个stack
     stack<BinaryTreeNode *> stack1;
     stack<BinaryTreeNode *> stack2;
     stack1.push(root);
@@ -393,6 +394,22 @@ void PostOrderBinaryTreeNoRecursive(BinaryTreeNode *root) {
         cout << node->m_nValue << endl;
     }
 
+}
+//MARK:层次遍历二叉树
+void BFS_BinaryTreeRecursive(BinaryTreeNode *root) {
+    queue<BinaryTreeNode*>Q;
+    Q.push(root);
+    while (!Q.empty()) {
+        BinaryTreeNode *node = Q.front();
+        Q.pop();
+        cout << node->m_nValue;
+        if (node->m_pLeft) {
+            Q.push(node->m_pLeft);
+        }
+        if (node->m_pRight) {
+            Q.push(node->m_pRight);
+        }
+    }
 }
 
 
@@ -473,24 +490,24 @@ BinaryTreeNode* Construct(int *preOrder, int *inOrder, int length) {
     return ConstructCore(preOrder, preOrder + length - 1, inOrder, inOrder + length - 1);
 }
 
-int main(int argc, const char * argv[]) {
-//     insert code here...
-    
-    BinaryTreeNode *root = new BinaryTreeNode(8);
-
-    InsertNode(root, 6);
-    InsertNode(root, 10);
-    InsertNode(root, 5);
-    InsertNode(root, 7);
-    InsertNode(root, 9);
-    InsertNode(root, 11);
-    
-    cout<< isCousins(root, 5, 7) << endl;
-    
-//    PrintBinaryTreeTopToBottom(root);
+//int main(int argc, const char * argv[]) {
+////     insert code here...
+//    
+//    BinaryTreeNode *root = new BinaryTreeNode(8);
 //
-//    int array[10] = {1,2,3,3,4,6,8,8,8,10};
-//    cout << GetNumberOfK(array, 10, 1) << endl;
-
-    return 0;
-}
+//    InsertNode(root, 6);
+//    InsertNode(root, 10);
+//    InsertNode(root, 5);
+//    InsertNode(root, 7);
+//    InsertNode(root, 9);
+//    InsertNode(root, 11);
+//    
+//    cout<< isCousins(root, 5, 7) << endl;
+//    
+////    PrintBinaryTreeTopToBottom(root);
+////
+////    int array[10] = {1,2,3,3,4,6,8,8,8,10};
+////    cout << GetNumberOfK(array, 10, 1) << endl;
+//
+//    return 0;
+//}

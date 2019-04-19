@@ -10,24 +10,7 @@
 #include <iostream>
 using namespace std;
 
-int BinaryS(int array[], int n , int value) {
-    int left = 0;
-    int right = n -1;
-    while (left <= right) {
-        int middle = (left + right) / 2;
-        if (array[middle] == value) {
-            return middle;
-        } else if (array[middle] < value) {
-            left = middle + 1;
-        } else {
-            right = middle - 1;
-        }
-    }
-    return -1;
-}
-
-
-//二分查找
+//MARK:二分查找
 int BinarySearch(int array[], int n, int value) {
     int left = 0;
     int right = n - 1;
@@ -43,19 +26,21 @@ int BinarySearch(int array[], int n, int value) {
     }
     return -1;
 }
-//快速排序
+//MARK:快速排序
 void quicksort(int a[], int left, int right) {
     int i, j, t, temp;
     if (left > right) {
         return;
     }
-    temp = a[left];//temp中存储基准数
+    temp = a[left];//选定最左侧为基准数存储在temp中
     i = left;
     j = right;
     while (i != j) {
+        //从右边往前找到第一个比哨兵小的
         while (a[j] >= temp && i < j) {
             j--;
         }
+        //从左边往前找到第一个比哨兵大的
         while (a[i]<= temp && i < j) {
             i++;
         }
@@ -65,14 +50,15 @@ void quicksort(int a[], int left, int right) {
             a[j]=t;
         }
     }
-    //将基准数归位
+    //一轮交换结束，将最初选定的基准数归位
     a[left] = a[i];
     a[i] = temp;
+    //开启次轮
     quicksort(a,left, i-1);
     quicksort(a,i+1, right);
 }
 
-//冒泡排序
+//MARK:冒泡排序
 void BubbleSort(int a[], int len) {
     int temp = 0;
     int k = len;

@@ -11,14 +11,18 @@
 using namespace std;
 
 template <typename T>
+//两个栈实现一个队列
 class CQueue {
 public:
     void push(int node) {
+        //直接进栈
         stackIn.push(node);
     }
     
     int pop() {
+        
         if (stackOut.size() <= 0) {
+            //从第一个栈搬数据到第二个栈
             while (stackIn.size() > 0) {
                 int data = stackIn.top();
                 stackIn.pop();
