@@ -126,6 +126,53 @@ struct BinaryTreeNode {
     BinaryTreeNode(int x):m_nValue(x),m_pLeft(NULL), m_pRight(NULL){}
 };
 
+//MARK:二叉树的序列化与反序列化
+void Serialize(BinaryTreeNode* pRoot, ostream& stream) {
+    if (pRoot == NULL) {
+        stream << "$,";
+        return;
+    }
+    stream << pRoot->m_nValue << ",";
+    Serialize(pRoot->m_pLeft, stream);
+    Serialize(pRoot->m_pRight, stream);
+}
+
+bool ReadStream(istream& stream, int* number)
+{
+    if(stream.eof())
+        return false;
+    
+    char buffer[32];
+    buffer[0] = '\0';
+    
+    char ch;
+    stream >> ch;
+    int i = 0;
+    while(!stream.eof() && ch != ',')
+    {
+        buffer[i++] = ch;
+        stream >> ch;
+    }
+    
+    bool isNumeric = false;
+    if(i > 0 && buffer[0] != '$')
+    {
+        *number = atoi(buffer);
+        isNumeric = true;
+    }
+    
+    return isNumeric;
+}
+
+void DeSerialize(BinaryTreeNode* pRoot, istream& stream) {
+    int number;
+    if (ReadStream(stream, &number)) {
+        pRoot = new BinaryTreeNode(number);
+        DeSerialize(pRoot->m_pLeft, stream);
+        DeSerialize(pRoot->m_pRight, stream);
+    }
+}
+
 //MARK:面试题50 二叉树中两个节点的最低公共祖先
 //MARK:最低公共祖先--是二叉搜索树
 BinaryTreeNode* BST_lowestCommomAncestor(BinaryTreeNode *pRoot,BinaryTreeNode * pFirst,BinaryTreeNode *pSecond) {
@@ -564,18 +611,18 @@ BinaryTreeNode* Construct(int *preOrder, int *inOrder, int length) {
     return ConstructCore(preOrder, preOrder + length - 1, inOrder, inOrder + length - 1);
 }
 
-//int main(int argc, const char * argv[]) {
+int main(int argc, const char * argv[]) {
 ////     insert code here...
 //    
-//    BinaryTreeNode *root = new BinaryTreeNode(8);
+    BinaryTreeNode *root = new BinaryTreeNode(5);
+
+    InsertNode(root, 3);
+    InsertNode(root, 2);
+    InsertNode(root, 4);
+    InsertNode(root, 7);
+    InsertNode(root, 8);
+    InOrderBinaryTreeRecursive(root);
 //
-//    InsertNode(root, 6);
-//    InsertNode(root, 10);
-//    InsertNode(root, 5);
-//    InsertNode(root, 7);
-//    InsertNode(root, 9);
-//    InsertNode(root, 11);
-//    
 //    cout<< isCousins(root, 5, 7) << endl;
 //    
 ////    PrintBinaryTreeTopToBottom(root);
@@ -583,5 +630,5 @@ BinaryTreeNode* Construct(int *preOrder, int *inOrder, int length) {
 ////    int array[10] = {1,2,3,3,4,6,8,8,8,10};
 ////    cout << GetNumberOfK(array, 10, 1) << endl;
 //
-//    return 0;
-//}
+    return 0;
+}

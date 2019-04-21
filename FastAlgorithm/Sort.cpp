@@ -62,7 +62,7 @@ void quicksort(int a[], int left, int right) {
 void BubbleSort(int a[], int len) {
     int temp = 0;
     int k = len;
-    int flag = k;//flag用于记录每次扫描发生交互的位置
+    int flag = k;//flag用于记录每次扫描发生交换的位置
     while (flag > 0) {
         k = flag;
         flag = 0;
@@ -71,7 +71,7 @@ void BubbleSort(int a[], int len) {
                 temp = a[j];
                 a[j] = a[j-1];
                 a[j-1] = temp;
-                flag = j;
+                flag = j;//更新flag
             }
         }
     }

@@ -17,7 +17,7 @@
 
 using namespace std;
 
-//数组整体右移动k位
+//MARK:数组整体右移动k位
 void rotateArray(vector<int>& nums, int k) {
     int n = nums.size();
     if (n == 0 || k % n == 0) {
@@ -29,7 +29,7 @@ void rotateArray(vector<int>& nums, int k) {
     std::reverse(nums.begin(), nums.end());
 }
 
-
+//MARK:合并有序数组
 int* mergeSortedArray(int nums1[], int m, int nums2[], int n) {
     int p = m-- + n-- -1;//先计算P然后分别对m,n--
     while (m >= 0 && n >= 0) {
@@ -78,7 +78,7 @@ int singleNumber(int array[], int length) {
 }
 
 
-//面试题31:连续子数组的最大和
+//MARK:面试题31:连续子数组的最大和
 bool g_InvalidInput = false;
 int MaxSumOfSubArray(int *pdata, int nLength) {
     if (pdata == NULL || nLength <= 0) {
@@ -87,7 +87,7 @@ int MaxSumOfSubArray(int *pdata, int nLength) {
     }
     g_InvalidInput = false;
     int curSum = 0;
-    int greatSum = INT_MAX;
+    int greatSum = INT_MIN;
     
     for (int i = 0; i < nLength; ++i) {
         if (curSum <= 0) {//如果当前和小于等于0， 加上pdata[i]后必然小于等于pdata[i]，所以抛弃当前和
@@ -104,7 +104,7 @@ int MaxSumOfSubArray(int *pdata, int nLength) {
 }
 
 
-//面试题14，调整数组元素顺序，使奇数位于偶数前面
+//MARK:面试题14，调整数组元素顺序，使奇数位于偶数前面
 //思路：元素交换
 void ResortArray(int *pData, unsigned int length, bool(*func)(int)) {
     if (pData == NULL || length == 0) {
@@ -195,13 +195,13 @@ bool testString(string str) {
 }
 
 
-int main(int argc, const char * argv[]) {
-    //     insert code here...
-    
-    vector<int>nums = {1,2,3,4,5,6,7};
-    rotateArray(nums, 3);
-    for (vector<int>::iterator it = nums.begin(); it!=nums.end(); it++) {
-        cout << *it <<" ";
-    }
-    return 0;
-}
+//int main(int argc, const char * argv[]) {
+//    //     insert code here...
+//
+//    vector<int>nums = {1,2,3,4,5,6,7};
+//    rotateArray(nums, 3);
+//    for (vector<int>::iterator it = nums.begin(); it!=nums.end(); it++) {
+//        cout << *it <<" ";
+//    }
+//    return 0;
+//}

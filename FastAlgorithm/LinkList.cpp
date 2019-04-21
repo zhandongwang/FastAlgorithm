@@ -16,6 +16,59 @@ struct ListNode {
     ListNode *m_pNext;
 };
 
+//MARK:面试题56 链表中环的入口节点
+//若果环中有n个节点，快指针先向前移动n步，然后快慢指针同速度移动，
+//当两指针相遇，快指针走了一圈时，慢指针指向入口
+//关键是先要计算出环中有几个节点
+ListNode* MeetingNode(ListNode *pHead) {
+    if (pHead == NULL) {
+        return NULL;
+    }
+    ListNode *pSlow = pHead->m_pNext;
+    if (pSlow == NULL) {
+        return NULL;
+    }
+    ListNode *pFast = pSlow->m_pNext;
+    while (pFast!=NULL && pSlow != NULL) {
+        if (pFast == pSlow) {
+            return pFast;
+        }
+        pSlow = pSlow->m_pNext;
+        pFast = pFast->m_pNext;
+        if (pFast != NULL) {
+            pFast = pFast->m_pNext;//pFast每次走两步
+        }
+    }
+    return NULL;
+}
+
+ListNode* EntryNodeOfLoop(ListNode *pHead) {
+    ListNode *meetingNode = MeetingNode(pHead);
+    if (meetingNode == NULL) {
+        return NULL;
+    }
+    int nodesInLoop = 1;
+    ListNode *pNode1 = meetingNode;
+    //计算环中的节点个数
+    while (pNode1->m_pNext != meetingNode) {
+        pNode1 = pNode1->m_pNext;
+        ++ nodesInLoop;
+    }
+    //pNode1先走n步
+    pNode1 = pHead;
+    for (int i = 0; i < nodesInLoop; ++i) {
+        pNode1 = pNode1->m_pNext;
+    }
+    ListNode *pNode2 = pHead;
+    while (pNode1 != pNode2) {
+        pNode1 = pNode1->m_pNext;
+        pNode2 = pNode2->m_pNext;
+    }
+    
+    return pNode1;
+}
+
+
 unsigned int GetListLength(ListNode *pHead) {
     unsigned int length = 0;
     ListNode *node = pHead;
@@ -96,9 +149,9 @@ void RemoveNode(ListNode **pHead, int value) {
         pToBeDeleted = NULL;
     }
 }
-//面试题5：从尾到头打印链表
+//MARK:面试题5：从尾到头打印链表
 void PrintListReversingly(ListNode *pHead) {
-    stack<ListNode *>nodes;
+    stack<ListNode *>nodes;//借助于stack
     ListNode *pNode = pHead;
     while (pHead != NULL) {
         nodes.push(pNode);
@@ -136,7 +189,7 @@ void DeleteNode(ListNode **pListHead, ListNode *pToBeDeleted) {
         pToBeDeleted = NULL;
     }
 }
-//面试题15 链表中倒数第k个节点， 快慢指针,快指针先走k步
+//MARK:面试题15 链表中倒数第k个节点， 快慢指针,快指针先走k步
 ListNode *FindKthToTail(ListNode *pListHead, unsigned int k) {
     if (pListHead == NULL || k <= 0) {
         return NULL;
