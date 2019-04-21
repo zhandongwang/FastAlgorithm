@@ -15,8 +15,7 @@ struct ListNode {
     int m_nValue;
     ListNode *m_pNext;
 };
-//面试题37:两个链表的第一个公共节点
-//思路:长的链表的指针先向前走n步,然后两个指针同时向前走，直至遇到第一个相同的节点
+
 unsigned int GetListLength(ListNode *pHead) {
     unsigned int length = 0;
     ListNode *node = pHead;
@@ -27,6 +26,8 @@ unsigned int GetListLength(ListNode *pHead) {
     return length;
 }
 
+//MARK:面试题37:两个链表的第一个公共节点
+//思路:长的链表的指针先向前走n步,然后两个指针同时向前走，直至遇到第一个相同的节点
 ListNode *findFirstCommonNode(ListNode *pHead1, ListNode *pHead2) {
     unsigned int length1 = GetListLength(pHead1);
     unsigned int length2 = GetListLength(pHead2);

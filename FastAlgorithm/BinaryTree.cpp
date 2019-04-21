@@ -126,7 +126,81 @@ struct BinaryTreeNode {
     BinaryTreeNode(int x):m_nValue(x),m_pLeft(NULL), m_pRight(NULL){}
 };
 
-//MARK:leetcode 993. 二叉树的堂兄弟节点(Cousins in Binary Tree)
+//MARK:面试题50 二叉树中两个节点的最低公共祖先
+//MARK:最低公共祖先--是二叉搜索树
+BinaryTreeNode* BST_lowestCommomAncestor(BinaryTreeNode *pRoot,BinaryTreeNode * pFirst,BinaryTreeNode *pSecond) {
+    if (pRoot == NULL || pRoot == pFirst || pRoot == pSecond) {
+        return pRoot;
+    }
+    if (pRoot->m_nValue > pFirst->m_nValue && pRoot->m_nValue > pSecond->m_nValue ) {
+        return BST_lowestCommomAncestor(pRoot->m_pLeft, pFirst, pSecond);
+    }
+    else if (pRoot->m_nValue < pFirst->m_nValue && pRoot->m_nValue < pSecond->m_nValue ) {
+        return BST_lowestCommomAncestor(pRoot->m_pRight, pFirst, pSecond);
+    } else {
+        return pRoot;
+    }
+}
+
+//MARK:最低公共祖先--二叉搜索树，但是节点的数据结构中存储的有指向父节点的指针
+//问题演变为求两个链表的第一个公共节点，参考
+//findFirstCommonNode
+
+
+//MARK:最低公共祖先--不是二叉搜索树，节点的数据结构中也没有有指向父节点的指针
+bool getNodePath(BinaryTreeNode* root, BinaryTreeNode *node, vector<BinaryTreeNode*>& path) {
+    if (root == NULL) {
+        return false;
+    }
+    if (root->m_nValue == node->m_nValue) {
+        return true;
+    }
+    //有无子节点
+    if (root->m_pLeft != NULL) {
+        path.push_back(root->m_pLeft);
+        if (getNodePath(root->m_pLeft, node, path)) {
+            return true;
+        }
+        //无左子树
+        path.pop_back();
+    }
+    if (root->m_pRight != NULL) {
+        path.push_back(root->m_pRight);
+        if (getNodePath(root->m_pRight, node, path)) {
+            return true;
+        }
+        //无右子树
+        path.pop_back();
+    }
+    return false;
+}
+
+BinaryTreeNode* lowestCommomAncestor(BinaryTreeNode *pRoot,BinaryTreeNode * pFirst,BinaryTreeNode *pSecond) {
+    if (pRoot == NULL || pFirst == NULL || pSecond == NULL) {
+        return NULL;
+    }
+    vector<BinaryTreeNode*>firstPath;
+    vector<BinaryTreeNode*>secondPath;
+    firstPath.push_back(pRoot);
+    secondPath.push_back(pRoot);
+    
+    getNodePath(pRoot, pFirst, firstPath);
+    getNodePath(pRoot, pSecond, secondPath);
+    //获取两条路径的最后一个公共节点
+    BinaryTreeNode* retNode = NULL;
+    for (int i = 0 ; i < firstPath.size() && i < secondPath.size(); ++i) {
+        if (firstPath.at(i)->m_nValue == secondPath.at(i)->m_nValue) {
+            retNode = firstPath.at(i);
+        } else {
+            break;
+        }
+    }
+    
+    return retNode;
+}
+
+
+//MARK:leetcode 993. 二叉树的堂兄弟节点判断(Cousins in Binary Tree)
 bool getPath(BinaryTreeNode* root, int x, vector<int>& path) {
     if (root == NULL) {
         return false;

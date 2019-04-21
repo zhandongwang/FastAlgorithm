@@ -17,6 +17,19 @@
 
 using namespace std;
 
+//数组整体右移动k位
+void rotateArray(vector<int>& nums, int k) {
+    int n = nums.size();
+    if (n == 0 || k % n == 0) {
+        return;
+    }
+    
+    std::reverse(nums.begin(), nums.begin()+n-k);
+    std::reverse(nums.end()-k, nums.end());
+    std::reverse(nums.begin(), nums.end());
+}
+
+
 int* mergeSortedArray(int nums1[], int m, int nums2[], int n) {
     int p = m-- + n-- -1;//先计算P然后分别对m,n--
     while (m >= 0 && n >= 0) {
@@ -184,6 +197,11 @@ bool testString(string str) {
 
 int main(int argc, const char * argv[]) {
     //     insert code here...
-    cout << testString("Ama");
+    
+    vector<int>nums = {1,2,3,4,5,6,7};
+    rotateArray(nums, 3);
+    for (vector<int>::iterator it = nums.begin(); it!=nums.end(); it++) {
+        cout << *it <<" ";
+    }
     return 0;
 }
