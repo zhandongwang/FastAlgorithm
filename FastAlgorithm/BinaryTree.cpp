@@ -8,6 +8,7 @@
 
 #include "BinaryTree.hpp"
 #include <iostream>
+#include <sstream>
 #include <stack>
 #include <queue>
 using namespace std;
@@ -127,6 +128,33 @@ struct BinaryTreeNode {
 };
 
 //MARK:二叉树的序列化与反序列化
+
+void aSerialize(BinaryTreeNode* pRoot, ostringstream& out) {
+    if (pRoot) {
+        //以空格分隔
+        out << pRoot->m_nValue << " ";
+        aSerialize(pRoot->m_pLeft, out);
+        aSerialize(pRoot->m_pRight, out);
+    } else {
+        out << "$ ";
+        return;
+    }
+}
+
+BinaryTreeNode* aDeSerialize(istringstream& in){
+    string val;
+    in >> val;//从流中读取值到变量val
+    if (val == "$") {
+        return NULL;
+    }
+    BinaryTreeNode *root = new BinaryTreeNode(stoi(val));
+    root->m_pLeft = aDeSerialize(in);
+    root->m_pRight = aDeSerialize(in);
+    
+    return root;
+}
+
+
 void Serialize(BinaryTreeNode* pRoot, ostream& stream) {
     if (pRoot == NULL) {
         stream << "$,";
@@ -614,21 +642,38 @@ BinaryTreeNode* Construct(int *preOrder, int *inOrder, int length) {
 int main(int argc, const char * argv[]) {
 ////     insert code here...
 //    
-    BinaryTreeNode *root = new BinaryTreeNode(5);
+//    BinaryTreeNode *root = new BinaryTreeNode(5);
+//
+//    InsertNode(root, 3);
+//    InsertNode(root, 2);
+//    InsertNode(root, 4);
+//    InsertNode(root, 7);
+//    InsertNode(root, 8);
+//    InOrderBinaryTreeRecursive(root);
+//
+//    ostringstream out;
+//    aSerialize(root, out);
+//    string str = out.str();
+//    cout << str << endl;
+//
+//    istringstream in(str);
+//    InOrderBinaryTreeRecursive(aDeSerialize(in));
+    
+    stringstream buf1;
+    buf1 << 7;
+    int n = 0;
+    buf1 >> n;
+    cout << buf1.str() << endl;
+    cout << n << endl;
 
-    InsertNode(root, 3);
-    InsertNode(root, 2);
-    InsertNode(root, 4);
-    InsertNode(root, 7);
-    InsertNode(root, 8);
-    InOrderBinaryTreeRecursive(root);
-//
-//    cout<< isCousins(root, 5, 7) << endl;
-//    
-////    PrintBinaryTreeTopToBottom(root);
-////
-////    int array[10] = {1,2,3,3,4,6,8,8,8,10};
-////    cout << GetNumberOfK(array, 10, 1) << endl;
-//
+    istringstream inbuf("-10");
+    inbuf >> n;
+    cout << n << endl;
+    
+    ostringstream buf2("test");
+    buf2 << "1";
+    cout << buf2.str() << endl;
+    
+    
     return 0;
 }
