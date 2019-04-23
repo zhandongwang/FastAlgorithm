@@ -14,7 +14,27 @@ using namespace std;
 struct ListNode {
     int m_nValue;
     ListNode *m_pNext;
+    ListNode(int x):m_nValue(x),m_pNext(NULL){}
 };
+
+//MARK:leetcode--21合并两个排序列表
+ListNode *mergeTwoSortedLists(ListNode *listOne, ListNode *listTwo) {
+    ListNode dummy(-1);
+    ListNode *head1=listOne, *head2=listTwo, *tail=&dummy;
+    while (head1 != nullptr && head2 != nullptr) {
+        if (head1->m_nValue < head2 ->m_nValue) {
+            tail->m_pNext = head1;
+            head1 = head1->m_pNext;
+        } else {
+            tail->m_pNext = head2;
+            head2 = head2->m_pNext;
+        }
+        tail = tail->m_pNext;
+    }
+    tail->m_pNext = (head1 == nullptr) ? head2 : head1;
+    return dummy.m_pNext;
+}
+
 
 //MARK:面试题56 链表中环的入口节点
 //若果环中有n个节点，快指针先向前移动n步，然后快慢指针同速度移动，
@@ -112,9 +132,7 @@ ListNode *findFirstCommonNode(ListNode *pHead1, ListNode *pHead2) {
 
 //尾部插入,当链表为空时，新插入的节点就是链表的头指针，此时需要修改头指针
 void AddToTail(ListNode **pHead, int value) {
-    ListNode *node = new ListNode();
-    node->m_nValue = value;
-    node->m_pNext = NULL;
+    ListNode *node = new ListNode(value);
     if (*pHead == NULL) {
         *pHead = node;
     } else {

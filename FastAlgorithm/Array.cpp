@@ -31,8 +31,9 @@ void rotateArray(vector<int>& nums, int k) {
     std::reverse(nums.begin(), nums.end());
 }
 
-//MARK:合并有序数组
+//MARK:合并有序数组, 从后向前
 int* mergeSortedArray(int nums1[], int m, int nums2[], int n) {
+    //新数组长度
     int p = m-- + n-- -1;//先计算P然后分别对m,n--
     while (m >= 0 && n >= 0) {
         nums1[p--] = nums1[m] > nums2[n] ? nums1[m--] : nums2[n--];
