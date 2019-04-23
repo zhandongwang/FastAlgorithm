@@ -639,7 +639,7 @@ BinaryTreeNode* Construct(int *preOrder, int *inOrder, int length) {
     return ConstructCore(preOrder, preOrder + length - 1, inOrder, inOrder + length - 1);
 }
 
-int main(int argc, const char * argv[]) {
+//int main(int argc, const char * argv[]) {
 ////     insert code here...
 //    
 //    BinaryTreeNode *root = new BinaryTreeNode(5);
@@ -659,21 +659,24 @@ int main(int argc, const char * argv[]) {
 //    istringstream in(str);
 //    InOrderBinaryTreeRecursive(aDeSerialize(in));
     
-    stringstream buf1;
-    buf1 << 7;
-    int n = 0;
-    buf1 >> n;
-    cout << buf1.str() << endl;
-    cout << n << endl;
-
-    istringstream inbuf("-10");
-    inbuf >> n;
-    cout << n << endl;
-    
-    ostringstream buf2("test");
-    buf2 << "1";
-    cout << buf2.str() << endl;
     
     
-    return 0;
-}
+    
+//    stringstream buf1;
+//    buf1 << 7;
+//    int n = 0;
+//    buf1 >> n;
+//    cout << buf1.str() << endl;
+//    cout << n << endl;
+//
+//    istringstream inbuf("-10");
+//    inbuf >> n;
+//    cout << n << endl;
+//
+//    ostringstream buf2("test");
+//    buf2 << "1";
+//    cout << buf2.str() << endl;
+//
+//
+//    return 0;
+//}

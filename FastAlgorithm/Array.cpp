@@ -11,8 +11,10 @@
 #include <stack>
 #include <queue>
 #include <vector>
-#include <set>
+#include <unordered_set>
+#include <unordered_map>
 #include <string>
+#include <map>
 #include <algorithm>
 
 using namespace std;
@@ -195,13 +197,49 @@ bool testString(string str) {
 }
 
 
+bool containsDuplicate(vector<int>nums) {
+    unordered_set<int> set;
+    for (vector<int>::iterator it = nums.begin(); it != nums.end(); ++it) {
+        auto pr= set.insert(*it);
+        if (!pr.second) {
+            return true;
+        }
+    }
+    return  false;
+}
+
+
 //int main(int argc, const char * argv[]) {
-//    //     insert code here...
-//
 //    vector<int>nums = {1,2,3,4,5,6,7};
-//    rotateArray(nums, 3);
-//    for (vector<int>::iterator it = nums.begin(); it!=nums.end(); it++) {
-//        cout << *it <<" ";
-//    }
+//    cout << containsDuplicate(nums) << endl;
 //    return 0;
 //}
+
+class RandomizedSet {
+private:
+    vector<int>nums;
+    unordered_map<int,int>m;
+public:
+    RandomizedSet() {}
+    bool insert(int val) {
+        if (m.count(val)) return false;
+        nums.push_back(val);//数组尾部插入值
+        m[val] = nums.size() - 1;//val:index
+        return true;
+        
+    }
+    
+    bool remove(int val) {
+        if (!m.count(val)) return false;
+        int last = nums.back();//数组最后一个值
+        m[last] = m[val];//要删除值的index赋给last元素的index
+        nums[m[val]] = last;//last元素的值移动到指定位置
+        nums.pop_back();
+        m.erase(val);
+        return true;
+    }
+    
+    int getRandom() {
+        return nums[rand() % nums.size()];
+    }
+};
