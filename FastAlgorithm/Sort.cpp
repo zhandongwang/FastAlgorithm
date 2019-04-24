@@ -8,6 +8,7 @@
 
 #include "Sort.hpp"
 #include <iostream>
+#include <vector>
 using namespace std;
 
 //MARK:二分查找
@@ -26,36 +27,66 @@ int BinarySearch(int array[], int n, int value) {
     }
     return -1;
 }
-//MARK:快速排序
-void quicksort(int a[], int left, int right) {
-    int i, j, t, temp;
-    if (left > right) {
+
+//MARK:数组中的第K个最大元素
+// k-1个小于key的、len-k个大于Key的
+
+int KthInArray(vector<int>&data, int left, int right, int k){
+    int i = left, j = right;
+    int pivot = data[j];
+    //从大到小排序
+    if (left < right) {
+        while (i < j) {
+            while (i < j && data[i] >= pivot) {//从左边找第一个比pviot小的数
+                i++;
+            }
+            data[j] = data[i];
+            while (i < j && data[j] < pivot) {
+                j--;
+            }
+            data[i] = data[j];
+        }
+        data[j] = pivot;//此时i = j
+        
+        int which_max = i-left+1;//which_max表示第几大的数
+        if (which_max == k) {
+            return pivot;
+        } else if (which_max < k) {//第k大的数在k的右边
+            return KthInArray(data, i+1, right, k-which_max);
+        } else {
+            return KthInArray(data, left, i-1, k);
+        }
+    } else {
+        return pivot;
+    }
+}
+
+
+//MARK:快速排序--填坑法
+int partition(int a[], int left, int right) {
+    int p = a[left];//选取第一个元素为参考值，并将这个点变成一个坑
+    while (left<right) {
+        while (a[right]>=p && left<right) {
+            right--;
+        }
+        a[left] = a[right];//将此元素填到之前的坑中，并将此节点作为新的坑
+        
+        while (a[left]<p && left<right) {
+            left++;
+        }
+        a[right]=a[left];
+    }
+    a[left] = p;//将参考值填入left的位置
+    return left;
+}
+
+void qs(int a[], int left, int right){
+    if(left >= right){
         return;
     }
-    temp = a[left];//选定最左侧为基准数存储在temp中
-    i = left;
-    j = right;
-    while (i != j) {
-        //从右边往前找到第一个比哨兵小的
-        while (a[j] >= temp && i < j) {
-            j--;
-        }
-        //从左边往前找到第一个比哨兵大的
-        while (a[i]<= temp && i < j) {
-            i++;
-        }
-        if (i < j) {//交换两个数在数组中的位置
-            t = a[i];
-            a[i]=a[j];
-            a[j]=t;
-        }
-    }
-    //一轮交换结束，将最初选定的基准数归位
-    a[left] = a[i];
-    a[i] = temp;
-    //开启次轮
-    quicksort(a,left, i-1);
-    quicksort(a,i+1, right);
+    int mid = partition(a, left, right);
+    qs(a, left, mid-1);
+    qs(a, mid+1, right);
 }
 
 //MARK:冒泡排序
@@ -79,8 +110,9 @@ void BubbleSort(int a[], int len) {
 
 
 
-//int main(int argc, const char * argv[]) {
-////    int array[6] = {1,2,4,6,9};
+int main(int argc, const char * argv[]) {
+    vector<int>v = {2,1,4,9,6};
+    cout << KthInArray(v, 0, 4, 4) <<endl;
 ////    BinaryS(array,5,1);
 //    int a[10] = {6,1,2,7,9, 3, 4, 5, 10, 8};
 ////    quicksort(a, 0, 9);
@@ -91,4 +123,4 @@ void BubbleSort(int a[], int len) {
 //    }
 //    cout <<endl;
 //    
-//}
+}
