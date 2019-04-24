@@ -19,7 +19,27 @@
 
 using namespace std;
 
-//MARK:数组整体右移动k位
+//MARK:Two sum
+vector<int>twoSum(vector<int>nums, int target) {
+    unordered_map<int, int>my_map;//哈希表
+    vector<int>result;
+    
+    for (int i = 0; i<nums.size(); ++i) {
+        my_map[nums[i]] = i;//value:index
+    }
+    for (int i = 0; i < nums.size(); ++i) {
+        int temp = target - nums[i];
+        if (my_map.find(temp)!= my_map.end() && my_map[temp] > i) {
+            result.push_back(i+1);
+            result.push_back(my_map[temp]+1);
+            break;
+        }
+    }
+    return result;
+}
+
+
+//MARK:数组整体右移动k位  数组旋转
 void rotateArray(vector<int>& nums, int k) {
     int n = nums.size();
     if (n == 0 || k % n == 0) {
@@ -29,6 +49,23 @@ void rotateArray(vector<int>& nums, int k) {
     std::reverse(nums.begin(), nums.begin()+n-k);
     std::reverse(nums.end()-k, nums.end());
     std::reverse(nums.begin(), nums.end());
+}
+
+void MergeArray(int a[], int n, int b[], int m, int c[]) {
+    int i=0, j=0, k=0;
+    while (i<n && j < m) {
+        if (a[i] < b[j]) {
+            c[k++] = a[i++];
+        } else {
+            c[k++] = b[j++];
+        }
+    }
+    while (i<n) {
+        c[k++] = a[i++];
+    }
+    while (j<m) {
+        c[k++] = b[j++];
+    }
 }
 
 //MARK:合并有序数组, 从后向前
@@ -47,24 +84,18 @@ int* mergeSortedArray(int nums1[], int m, int nums2[], int n) {
 
 //MARK:leetcode--169：找众数
 //给定一个大小为 n 的数组，找到其中的众数。众数是指在数组中出现次数大于 ⌊ n/2 ⌋ 的元素。
-//思路:从第一个数开始count=1  遇到相同的就加1  遇到不同的就减1.减到0就重新换个数开始计数
-int findMajorItem(int array[], int length) {
-    int count = 1;
-    int major = array[0];
-    for (int i = 1; i< length; ++i) {
-        if (array[i] == major) {
-            count++;
+//思路:
+int findMajorItem(vector<int>& nums) {
+    int res = 0, cnt = 0;
+    for (int num : nums) {
+        if (cnt == 0) {
+            res = num; ++cnt;
         } else {
-            count--;
-            if (count == 0) {
-                major = array[i+1];
-            }
+            num == res ? ++cnt : --cnt;
         }
     }
-    return major;
+    return res;
 }
-
-
 
 //MARK:leetcode--136. 只出现一次的数字
 //1. 交换律 a^b^c <=> a^c^b
@@ -133,6 +164,23 @@ void ResortArray(int *pData, unsigned int length, bool(*func)(int)) {
 bool isEven(int n) {
     return (n & 1) == 0;
 }
+
+int majorityElement(vector<int>& nums) {
+    int count = 0;
+    int temp = nums.front();
+    for (int i = 0; i < nums.size(); ++i) {
+        if (nums.at(i) == temp) {
+            count++;
+        } else {
+            count--;
+            if (count == 0) {
+                temp = nums.at(i);
+            }
+        }
+    }
+    return temp;
+}
+
 
 //MARK:面试题3:二维数组查找
 //给你一个 n*m 的二维数组，每行元素保证递增，每列元素保证递增，试问如何使用优秀的时间复杂度找到某个数字（或者判断不存在）。

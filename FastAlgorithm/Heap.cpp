@@ -71,15 +71,15 @@ private:
     
 };
 
-int main(int argc, const char * argv[]) {
-    MinHeap heap = MinHeap();
-    heap.insertElemetn(3);
-    heap.insertElemetn(5);
-    heap.insertElemetn(7);
-    heap.insertElemetn(9);
-    heap.insertElemetn(11);
-    heap.insertElemetn(13);
-    heap.insertElemetn(6);
-    
-    return 0;
-}
+//int main(int argc, const char * argv[]) {
+//    MinHeap heap = MinHeap();
+//    heap.insertElemetn(3);
+//    heap.insertElemetn(5);
+//    heap.insertElemetn(7);
+//    heap.insertElemetn(9);
+//    heap.insertElemetn(11);
+//    heap.insertElemetn(13);
+//    heap.insertElemetn(6);
+//    
+//    return 0;
+//}

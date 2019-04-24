@@ -17,24 +17,6 @@ struct ListNode {
     ListNode(int x):m_nValue(x),m_pNext(NULL){}
 };
 
-//MARK:leetcode--21合并两个排序列表
-ListNode *mergeTwoSortedLists(ListNode *listOne, ListNode *listTwo) {
-    ListNode dummy(-1);
-    ListNode *head1=listOne, *head2=listTwo, *tail=&dummy;
-    while (head1 != nullptr && head2 != nullptr) {
-        if (head1->m_nValue < head2 ->m_nValue) {
-            tail->m_pNext = head1;
-            head1 = head1->m_pNext;
-        } else {
-            tail->m_pNext = head2;
-            head2 = head2->m_pNext;
-        }
-        tail = tail->m_pNext;
-    }
-    tail->m_pNext = (head1 == nullptr) ? head2 : head1;
-    return dummy.m_pNext;
-}
-
 
 //MARK:面试题56 链表中环的入口节点
 //若果环中有n个节点，快指针先向前移动n步，然后快慢指针同速度移动，
@@ -228,7 +210,8 @@ ListNode *FindKthToTail(ListNode *pListHead, unsigned int k) {
     return pSlow;
 }
 
-//面试题17 合并两个递增有序的链表
+
+//MARK:面试题17 合并两个递增有序的链表
 //思路:得到值较小的头节点并把它链接到已合并链表的尾部
 ListNode* Merge(ListNode *pHead1, ListNode *pHead2) {
     if (pHead1 == NULL) {
@@ -249,21 +232,46 @@ ListNode* Merge(ListNode *pHead1, ListNode *pHead2) {
     return pMergedHead;
 }
 
-//反转链表
-ListNode* ReverseList(ListNode *pHead) {
-    ListNode *pReversedHead = NULL;
-    ListNode *pNode = pHead;
-    ListNode *pPrev = NULL;
-    while (pNode != NULL) {
-        ListNode *pNext = pNode->m_pNext;//后一个节点
-        if (pNext == NULL) {
-            pReversedHead = pNode;
-        }
-        pNode->m_pNext = pPrev;
-        
-        pPrev = pNode;
-        pNode = pNext;
+//MARK:链表排序
+ListNode* sortList(ListNode *pHead){
+    if (!pHead || !pHead->m_pNext) {
+        return pHead;
     }
-    return pReversedHead;
+    ListNode dummy(-1);
+    dummy.m_pNext = pHead;
+    ListNode *pSlow=&dummy, *pFast=&dummy;//快慢指针，找出链表的中间节点
+    while (pFast && pFast->m_pNext) {
+        pSlow = pSlow->m_pNext;
+        pFast = pFast->m_pNext->m_pNext;
+    }
+    ListNode *right_begin = pSlow->m_pNext;
+    pSlow->m_pNext = nullptr;//断开链表
+    //归并排序
+    ListNode *l1 = sortList(dummy.m_pNext);
+    ListNode *l2 = sortList(right_begin);
+    
+    return Merge(l1,l2);
+    
+}
+
+//MARK:反转链表
+ListNode* ReverseList(ListNode *pHead) {
+    if (pHead == nullptr) {
+        return nullptr;
+    }
+    ListNode *pCurrent, *pPre=pHead, *pNext;
+    pCurrent = pPre->m_pNext;
+    while (pCurrent) {
+        pNext = pCurrent->m_pNext;//缓存pCurrent后面的链表
+        
+        pCurrent->m_pNext = pPre;
+        pPre = pCurrent;
+        
+        pCurrent = pNext;
+    }
+    pHead->m_pNext = nullptr;//原头节点的Next置空
+    pHead = pPre;
+    
+    return pHead;
     
 }

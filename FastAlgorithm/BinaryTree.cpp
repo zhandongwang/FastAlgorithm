@@ -19,7 +19,33 @@ typedef struct BinarySearchTreeNode {
     BinarySearchTreeNode* left;
     BinarySearchTreeNode* right;
     BinarySearchTreeNode* parent;
+    BinarySearchTreeNode(int key):key(key),left(NULL),right(NULL), parent(NULL){}
 }*BSTree;
+//MARK:二叉树搜索树的第k个节点
+BinarySearchTreeNode *KthNode(BinarySearchTreeNode *pRoot, int k) {
+    if (pRoot == nullptr) {
+        return pRoot;
+    }
+    int p = 0;
+    stack<BinarySearchTreeNode*>s;
+    BinarySearchTreeNode *curNode = pRoot;
+    while (curNode != nullptr || !s.empty()) {
+        while (curNode != nullptr) {
+            s.push(curNode);
+            curNode =  curNode->left;
+        }
+        if (!s.empty()) {
+            curNode = s.top();
+            s.pop();
+            p++;
+            if (p == k) {
+                return curNode;
+            }
+            curNode = curNode->right;
+        }
+    }
+    return nullptr;
+}
 
 //MARK:二叉搜索树的插入
 int BST_Insert(BSTree &T, int k, BinarySearchTreeNode *parent=NULL) {
@@ -483,9 +509,11 @@ void InOrderBinaryTreeRecursive(BinaryTreeNode *root) {
     if (root == NULL) {
         return;
     }
+    cout << "enter Recursive " << root->m_nValue <<endl;
     InOrderBinaryTreeRecursive(root->m_pLeft);
-    cout << root->m_nValue << endl;
+    cout << "inner Recursive " << root->m_nValue <<endl;
     InOrderBinaryTreeRecursive(root->m_pRight);
+    cout << "after Recursive " << root->m_nValue <<endl;
 }
 
 //MARK:中序遍历二叉树非递归实现
@@ -638,29 +666,44 @@ BinaryTreeNode* Construct(int *preOrder, int *inOrder, int length) {
     }
     return ConstructCore(preOrder, preOrder + length - 1, inOrder, inOrder + length - 1);
 }
+//MARK:理解递归
+int fab(int n) {
+    if (n < 1) {
+        cout<<"分解完毕"<<endl;
+        return 1;
+    }
+    cout<< "f(" << n <<")="<<n <<"*f("<< n-1 <<")" <<endl;
+    int z = n * fab(n-1);
+    cout<<"f("<<n<<")="<<z <<endl;
+    
+    return z;
+}
 
-//int main(int argc, const char * argv[]) {
+
+int main(int argc, const char * argv[]) {
+//    fab(5);
+//    BSTree root = BSTree();
+//    root->key = 5;
+//    root->left = nullptr;
+//    root->right = nullptr;
+//    int array [6] = {3,7,2,4,6,8};
+//    Create_BST(root, array, 6);
+    
 ////     insert code here...
-//    
-//    BinaryTreeNode *root = new BinaryTreeNode(5);
 //
-//    InsertNode(root, 3);
-//    InsertNode(root, 2);
-//    InsertNode(root, 4);
-//    InsertNode(root, 7);
-//    InsertNode(root, 8);
-//    InOrderBinaryTreeRecursive(root);
-//
-//    ostringstream out;
-//    aSerialize(root, out);
-//    string str = out.str();
-//    cout << str << endl;
-//
-//    istringstream in(str);
-//    InOrderBinaryTreeRecursive(aDeSerialize(in));
     
     
     
+    BinaryTreeNode *root = new BinaryTreeNode(5);
+
+    InsertNode(root, 3);
+    InsertNode(root, 2);
+    InsertNode(root, 4);
+    InsertNode(root, 7);
+    InsertNode(root, 8);
+
+    InOrderBinaryTreeRecursive(root);
+
     
 //    stringstream buf1;
 //    buf1 << 7;
@@ -678,5 +721,5 @@ BinaryTreeNode* Construct(int *preOrder, int *inOrder, int length) {
 //    cout << buf2.str() << endl;
 //
 //
-//    return 0;
-//}
+    return 0;
+}
