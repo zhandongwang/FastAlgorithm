@@ -109,7 +109,7 @@ void BubbleSort(int a[], int len) {
 }
 
 
-
+/*
 int main(int argc, const char * argv[]) {
     vector<int>v = {2,1,4,9,6};
     cout << KthInArray(v, 0, 4, 4) <<endl;
@@ -124,3 +124,4 @@ int main(int argc, const char * argv[]) {
 //    cout <<endl;
 //    
 }
+ */

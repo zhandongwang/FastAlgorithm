@@ -19,6 +19,40 @@
 
 using namespace std;
 
+vector<int> arrayIntersect(vector<int>&nums1, vector<int>&nums2) {
+    vector<int> ret;
+    std::sort(nums1.begin(), nums1.end());
+    std::sort(nums2.begin(), nums2.end());
+    int aIdx = 0;
+    int bIdx = 0;
+    while (aIdx < nums1.size() && bIdx < nums2.size()) {
+        if (nums1[aIdx] == nums2[bIdx]) {
+            ret.push_back(nums1[aIdx]);
+            aIdx++;
+            bIdx++;
+        } else if (nums1[aIdx] < nums2[bIdx]) {
+            aIdx++;
+        } else {
+            bIdx++;
+        }
+    }
+    
+    return ret;
+}
+
+
+bool myFunc(int a, int b) {
+    return to_string(a) + to_string(b) > to_string(b) + to_string(a);
+}
+//MARK://letcode最大值
+string largestNum(vector<int>&nums) {
+    std::sort(nums.begin(), nums.end(), myFunc);
+    string res = "";
+    for (auto num : nums) {
+        res += to_string(num);
+    }
+    return res[0] == '0' ? "0" :res;
+}
 
 //MARK:Two sum
 vector<int>twoSum(vector<int>nums, int target) {
@@ -259,12 +293,6 @@ bool containsDuplicate(vector<int>nums) {
 }
 
 
-//int main(int argc, const char * argv[]) {
-//    vector<int>nums = {1,2,3,4,5,6,7};
-//    cout << containsDuplicate(nums) << endl;
-//    return 0;
-//}
-
 class RandomizedSet {
 private:
     vector<int>nums;
@@ -293,3 +321,13 @@ public:
         return nums[rand() % nums.size()];
     }
 };
+
+int main(int argc, const char * argv[]) {
+    vector<int>nums1 = {4,9,5};
+    vector<int>nums2 = {9,4,9,8,4};
+    vector<int> ret = arrayIntersect(nums1, nums2);
+    for (auto num: ret) {
+        cout << num << " ";
+    }
+    return 0;
+}
