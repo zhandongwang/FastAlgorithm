@@ -17,7 +17,6 @@ struct ListNode {
     ListNode(int x):m_nValue(x),m_pNext(NULL){}
 };
 
-
 //MARK:面试题56 链表中环的入口节点
 //若果环中有n个节点，快指针先向前移动n步，然后快慢指针同速度移动，
 //当两指针相遇，快指针走了一圈时，慢指针指向入口
@@ -111,44 +110,98 @@ ListNode *findFirstCommonNode(ListNode *pHead1, ListNode *pHead2) {
     return node;
 }
 
+//MARK:反转链表
+ListNode* ReverseList(ListNode **pHead) {
+    if (*pHead == nullptr) {
+        return nullptr;
+    }
+    ListNode *pCurrent, *pPre=*pHead, *pNext;
+    pCurrent = pPre->m_pNext;
+    while (pCurrent) {
+        //1.缓存pCurrent后面的节点，防止断开
+        pNext = pCurrent->m_pNext;
+        //2.修改指针
+        pCurrent->m_pNext = pPre;
+        //3.同步后移
+        pPre = pCurrent;
+        pCurrent = pNext;
+    }
+    (*pHead)->m_pNext = nullptr;//原头节点的Next置空
+    *pHead = pPre;//pHead指向新的头结点
+    
+    return *pHead;
+    
+}
+
 
 //尾部插入,当链表为空时，新插入的节点就是链表的头指针，此时需要修改头指针
-void AddToTail(ListNode **pHead, int value) {
+ListNode* AddNodeAtTail(ListNode **pHead, int value) {
     ListNode *node = new ListNode(value);
+    //链表为空
     if (*pHead == NULL) {
         *pHead = node;
     } else {
         ListNode *pNode = *pHead;
         while (pNode->m_pNext != NULL) {
             pNode = pNode->m_pNext;
+            
         }
         pNode->m_pNext = node;
     }
+    return *pHead;
 }
-
-void RemoveNode(ListNode **pHead, int value) {
-    if (pHead == NULL || *pHead == NULL) {
+//MARK:链表节点删除，有重复节点
+void RemoveNodes(ListNode *pHead, int value) {
+    if (pHead == NULL) {
         return;
     }
-    ListNode *pToBeDeleted = NULL;
+    ListNode *curr = NULL;
+    ListNode *rHead = NULL;
+    while (pHead) {
+        //1.缓存下一个节点，防止断裂
+        ListNode *pTempNode = pHead->m_pNext;
+        pHead->m_pNext = NULL;
+        //值不同就加入到结果链表
+        if (pHead->m_nValue != value) {
+            if (!rHead) {
+                rHead = pHead;
+                curr = pHead;
+            } else {
+                curr->m_pNext = pHead;
+                curr = curr->m_pNext;
+            }
+        }
+        pHead = pTempNode;
+    }
+}
+
+
+//面试题13:删除节点、利用后面节点覆盖要删除的节点， 假设链表中无重复节点
+void RemoveNode(ListNode **pHead, int value) {
+    if (*pHead == NULL || pHead == NULL) {
+        return;
+    }
+    ListNode *pToBeDeleted = nullptr;
     if ((*pHead)->m_nValue == value) {
         pToBeDeleted = *pHead;
         *pHead = (*pHead)->m_pNext;
     } else {
         ListNode *pNode = *pHead;
-        while (pNode->m_pNext != NULL && pNode->m_pNext->m_nValue != value ) {
+        while (pNode->m_pNext && pNode->m_pNext->m_nValue != value) {
             pNode = pNode->m_pNext;
         }
-        if (pNode->m_pNext != NULL && pNode->m_pNext->m_nValue == value) {
+        if (pNode->m_pNext && pNode->m_pNext->m_nValue == value) {
             pToBeDeleted = pNode->m_pNext;
             pNode->m_pNext = pNode->m_pNext->m_pNext;
         }
+        
     }
-    if (pToBeDeleted != NULL) {
+    if (pToBeDeleted != nullptr) {
         delete pToBeDeleted;
-        pToBeDeleted = NULL;
+        pToBeDeleted = nullptr;
     }
 }
+
 //MARK:面试题5：从尾到头打印链表
 void PrintListReversingly(ListNode *pHead) {
     stack<ListNode *>nodes;//借助于stack
@@ -164,7 +217,7 @@ void PrintListReversingly(ListNode *pHead) {
     }
 }
 
-//面试题13：在O(1)时间删除链表节点  利用后面节点覆盖要删除的节点
+
 void DeleteNode(ListNode **pListHead, ListNode *pToBeDeleted) {
     if (!pListHead || !pToBeDeleted) {
         return;
@@ -254,24 +307,26 @@ ListNode* sortList(ListNode *pHead){
     
 }
 
-//MARK:反转链表
-ListNode* ReverseList(ListNode *pHead) {
-    if (pHead == nullptr) {
-        return nullptr;
+
+void PrintLinkList(ListNode *pHead) {
+    while (pHead) {
+        cout << pHead->m_nValue << " ";
+        pHead = pHead->m_pNext;
     }
-    ListNode *pCurrent, *pPre=pHead, *pNext;
-    pCurrent = pPre->m_pNext;
-    while (pCurrent) {
-        pNext = pCurrent->m_pNext;//缓存pCurrent后面的链表
-        
-        pCurrent->m_pNext = pPre;
-        pPre = pCurrent;
-        
-        pCurrent = pNext;
-    }
-    pHead->m_pNext = nullptr;//原头节点的Next置空
-    pHead = pPre;
-    
-    return pHead;
-    
+    cout << endl;
 }
+
+int main(int argc, const char * argv[]) {
+    ListNode *head = new ListNode(5);
+    AddNodeAtTail(&head, 4);
+    AddNodeAtTail(&head, 3);
+    PrintLinkList(head);
+    ReverseList(&head);
+    PrintLinkList(head);
+    RemoveNode(&head, 4);
+    PrintLinkList(head);
+    
+    return 0;
+}
+
+

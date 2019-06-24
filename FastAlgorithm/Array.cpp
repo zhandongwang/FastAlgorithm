@@ -19,26 +19,21 @@
 
 using namespace std;
 
-vector<int> arrayIntersect(vector<int>&nums1, vector<int>&nums2) {
-    vector<int> ret;
-    std::sort(nums1.begin(), nums1.end());
-    std::sort(nums2.begin(), nums2.end());
-    int aIdx = 0;
-    int bIdx = 0;
-    while (aIdx < nums1.size() && bIdx < nums2.size()) {
-        if (nums1[aIdx] == nums2[bIdx]) {
-            ret.push_back(nums1[aIdx]);
-            aIdx++;
-            bIdx++;
-        } else if (nums1[aIdx] < nums2[bIdx]) {
-            aIdx++;
-        } else {
-            bIdx++;
+bool isPalindrome(int x) {
+    if (x < 0) {
+        return false;
+    }
+    string s = to_string(x);
+    size_t len = s.length();
+    for (int i = 0; i < len; ++i) {
+        if (s[i] != s[len-1-i]) {
+            return false;
         }
     }
+    return true;
     
-    return ret;
 }
+
 
 
 bool myFunc(int a, int b) {
@@ -54,13 +49,15 @@ string largestNum(vector<int>&nums) {
     return res[0] == '0' ? "0" :res;
 }
 
+
+
 //MARK:Two sum
 vector<int>twoSum(vector<int>nums, int target) {
     unordered_map<int, int>my_map;//哈希表
     vector<int>result;
     
     for (int i = 0; i<nums.size(); ++i) {
-        my_map[nums[i]] = i;//value:index
+        my_map[nums[i]] = i;//nums:index
     }
     for (int i = 0; i < nums.size(); ++i) {
         int temp = target - nums[i];
@@ -86,6 +83,37 @@ void rotateArray(vector<int>& nums, int k) {
     std::reverse(nums.begin(), nums.end());
 }
 
+vector<int>arrayMerge(vector<int>&num1, vector<int>num2) {
+    vector<int>ret;
+    
+    std::sort(num1.begin(), num1.end());
+    std::sort(num2.begin(), num2.end());
+    int aIdx = 0;
+    int bIdx = 0;
+    while (aIdx < num1.size() && bIdx < num2.size()) {
+        if (num1[aIdx] == num2[bIdx]) {
+            ret.push_back(num1[aIdx]);
+            aIdx++;
+            bIdx++;
+        } else if (num1[aIdx] < num2[bIdx])  {
+            ret.push_back(num1[aIdx++]);
+        } else {
+            ret.push_back(num2[bIdx++]);
+        }
+    }
+    while (aIdx < num1.size()) {
+        ret.push_back(num1[aIdx++]);
+    }
+    
+    while (bIdx < num2.size()) {
+        ret.push_back(num2[bIdx++]);
+    }
+    
+    return ret;
+}
+
+
+//MARK:合并有序数组, 从后向前
 void MergeArray(int a[], int n, int b[], int m, int c[]) {
     int i=0, j=0, k=0;
     while (i<n && j < m) {
@@ -101,20 +129,6 @@ void MergeArray(int a[], int n, int b[], int m, int c[]) {
     while (j<m) {
         c[k++] = b[j++];
     }
-}
-
-//MARK:合并有序数组, 从后向前
-int* mergeSortedArray(int nums1[], int m, int nums2[], int n) {
-    //新数组长度
-    int p = m-- + n-- -1;//先计算P然后分别对m,n--
-    while (m >= 0 && n >= 0) {
-        nums1[p--] = nums1[m] > nums2[n] ? nums1[m--] : nums2[n--];
-    }
-    
-    while (n >= 0) {
-        nums1[p--] = nums2[n--];
-    }
-    return nums1;
 }
 
 //MARK:leetcode--169：找众数
@@ -322,12 +336,12 @@ public:
     }
 };
 
-int main(int argc, const char * argv[]) {
-    vector<int>nums1 = {4,9,5};
-    vector<int>nums2 = {9,4,9,8,4};
-    vector<int> ret = arrayIntersect(nums1, nums2);
-    for (auto num: ret) {
-        cout << num << " ";
-    }
-    return 0;
-}
+//int main(int argc, const char * argv[]) {
+//    vector<int>nums1 = {4,9,5};
+//    vector<int>nums2 = {10,8,4};
+//    vector<int> ret = arrayMerge(nums1, nums2);
+//    for (auto num: ret) {
+//        cout << num << " ";
+//    }
+//    return 0;
+//}
