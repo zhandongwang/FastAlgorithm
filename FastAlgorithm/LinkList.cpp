@@ -110,138 +110,6 @@ ListNode *findFirstCommonNode(ListNode *pHead1, ListNode *pHead2) {
     return node;
 }
 
-//MARK:反转链表
-ListNode* ReverseList(ListNode **pHead) {
-    if (*pHead == nullptr) {
-        return nullptr;
-    }
-    ListNode *pCurrent, *pPre=*pHead, *pNext;
-    pCurrent = pPre->m_pNext;
-    while (pCurrent) {
-        //1.缓存pCurrent后面的节点，防止断开
-        pNext = pCurrent->m_pNext;
-        //2.修改指针
-        pCurrent->m_pNext = pPre;
-        //3.同步后移
-        pPre = pCurrent;
-        pCurrent = pNext;
-    }
-    (*pHead)->m_pNext = nullptr;//原头节点的Next置空
-    *pHead = pPre;//pHead指向新的头结点
-    
-    return *pHead;
-    
-}
-
-
-//尾部插入,当链表为空时，新插入的节点就是链表的头指针，此时需要修改头指针
-ListNode* AddNodeAtTail(ListNode **pHead, int value) {
-    ListNode *node = new ListNode(value);
-    //链表为空
-    if (*pHead == NULL) {
-        *pHead = node;
-    } else {
-        ListNode *pNode = *pHead;
-        while (pNode->m_pNext != NULL) {
-            pNode = pNode->m_pNext;
-            
-        }
-        pNode->m_pNext = node;
-    }
-    return *pHead;
-}
-//MARK:链表节点删除，有重复节点
-void RemoveNodes(ListNode *pHead, int value) {
-    if (pHead == NULL) {
-        return;
-    }
-    ListNode *curr = NULL;
-    ListNode *rHead = NULL;
-    while (pHead) {
-        //1.缓存下一个节点，防止断裂
-        ListNode *pTempNode = pHead->m_pNext;
-        pHead->m_pNext = NULL;
-        //值不同就加入到结果链表
-        if (pHead->m_nValue != value) {
-            if (!rHead) {
-                rHead = pHead;
-                curr = pHead;
-            } else {
-                curr->m_pNext = pHead;
-                curr = curr->m_pNext;
-            }
-        }
-        pHead = pTempNode;
-    }
-}
-
-
-//面试题13:删除节点、利用后面节点覆盖要删除的节点， 假设链表中无重复节点
-void RemoveNode(ListNode **pHead, int value) {
-    if (*pHead == NULL || pHead == NULL) {
-        return;
-    }
-    ListNode *pToBeDeleted = nullptr;
-    if ((*pHead)->m_nValue == value) {
-        pToBeDeleted = *pHead;
-        *pHead = (*pHead)->m_pNext;
-    } else {
-        ListNode *pNode = *pHead;
-        while (pNode->m_pNext && pNode->m_pNext->m_nValue != value) {
-            pNode = pNode->m_pNext;
-        }
-        if (pNode->m_pNext && pNode->m_pNext->m_nValue == value) {
-            pToBeDeleted = pNode->m_pNext;
-            pNode->m_pNext = pNode->m_pNext->m_pNext;
-        }
-        
-    }
-    if (pToBeDeleted != nullptr) {
-        delete pToBeDeleted;
-        pToBeDeleted = nullptr;
-    }
-}
-
-//MARK:面试题5：从尾到头打印链表
-void PrintListReversingly(ListNode *pHead) {
-    stack<ListNode *>nodes;//借助于stack
-    ListNode *pNode = pHead;
-    while (pHead != NULL) {
-        nodes.push(pNode);
-        pNode = pNode->m_pNext;
-    }
-    while (!nodes.empty()) {
-        pNode = nodes.top();
-        cout << pNode->m_nValue;
-        nodes.pop();
-    }
-}
-
-
-void DeleteNode(ListNode **pListHead, ListNode *pToBeDeleted) {
-    if (!pListHead || !pToBeDeleted) {
-        return;
-    }
-    if (pToBeDeleted->m_pNext != NULL) {//删除的不是尾节点
-        ListNode *pNext = pToBeDeleted->m_pNext;
-        pToBeDeleted->m_nValue = pNext->m_nValue;
-        pToBeDeleted->m_pNext = pNext->m_pNext;
-        delete pNext;
-        pNext = NULL;
-    } else if(*pListHead == pToBeDeleted){//只有一个节点
-        delete pToBeDeleted;
-        pToBeDeleted = NULL;
-        *pListHead = NULL;
-    } else {//删除的是尾节点
-        ListNode *pNode = *pListHead;
-        while (pNode->m_pNext != pToBeDeleted) {
-            pNode = pNode->m_pNext;
-        }
-        pNode->m_pNext = NULL;
-        delete pToBeDeleted;
-        pToBeDeleted = NULL;
-    }
-}
 //MARK:面试题15 链表中倒数第k个节点， 快慢指针,快指针先走k步
 ListNode *FindKthToTail(ListNode *pListHead, unsigned int k) {
     if (pListHead == NULL || k <= 0) {
@@ -308,6 +176,162 @@ ListNode* sortList(ListNode *pHead){
 }
 
 
+//MARK:面试题5：从尾到头打印链表:借助stack
+void ReversePrintList(ListNode *head) {
+    if (head == nullptr) {
+        return;
+    }
+    ListNode *pNode = head;
+    stack<ListNode *> nodes;
+    while (pNode) {
+        nodes.push(pNode);
+        pNode = pNode->m_pNext;
+    }
+    while(!nodes.empty()) {
+        ListNode *node = nodes.top();
+        cout << node -> m_nValue << " ";
+        nodes.pop();
+    }
+    cout << endl;
+    
+}
+
+//MARK:反转链表
+ListNode* ReverseList(ListNode **pHead) {
+    if (*pHead == nullptr) {
+        return nullptr;
+    }
+    ListNode *pCurrent, *pPre=*pHead, *pNext;
+    pCurrent = pPre->m_pNext;
+    while (pCurrent) {
+        //1.缓存pCurrent后面的节点，防止断开
+        pNext = pCurrent->m_pNext;
+        //2.修改指针
+        pCurrent->m_pNext = pPre;
+        //3.同步后移
+        pPre = pCurrent;
+        pCurrent = pNext;
+    }
+    (*pHead)->m_pNext = nullptr;//原头节点的Next置空
+    *pHead = pPre;//pHead指向新的头结点
+    
+    return *pHead;
+    
+}
+
+//MARK:尾部插入节点,当链表为空时，新插入的节点就是链表的头指针，此时需要修改头指针
+ListNode* AddNodeAtTail(ListNode **pHead, int value) {
+    ListNode *node = new ListNode(value);
+    //链表为空
+    if (*pHead == NULL) {
+        *pHead = node;
+    } else {
+        ListNode *pNode = *pHead;
+        while (pNode->m_pNext != NULL) {
+            pNode = pNode->m_pNext;
+            
+        }
+        pNode->m_pNext = node;
+    }
+    return *pHead;
+}
+//MARK:删除链表中的重复节点
+ListNode* RemoveDuplicateNodes(ListNode *pHead) {
+    //如果为空或者只有一个节点，直接返回
+    if (!pHead || pHead->m_pNext == NULL) {
+        return pHead;
+    }
+    ListNode *resultHead = pHead;
+    ListNode *p = resultHead;
+    while ((pHead = pHead->m_pNext) != nullptr) {
+        if (p->m_nValue != pHead->m_nValue) {
+            p->m_pNext = pHead;
+            p = p->m_pNext;
+        }
+    }
+    p->m_pNext = nullptr;
+    
+    return resultHead;
+}
+
+
+//MARK:链表节点删除，有重复节点
+void RemoveNodes(ListNode *pHead, int value) {
+    if (pHead == NULL) {
+        return;
+    }
+    ListNode *curr = NULL;
+    ListNode *rHead = NULL;
+    while (pHead) {
+        //1.缓存下一个节点，防止断裂
+        ListNode *pTempNode = pHead->m_pNext;
+        pHead->m_pNext = NULL;
+        //值不同就加入到结果链表
+        if (pHead->m_nValue != value) {
+            if (!rHead) {
+                rHead = pHead;
+                curr = pHead;
+            } else {
+                curr->m_pNext = pHead;
+                curr = curr->m_pNext;
+            }
+        }
+        pHead = pTempNode;
+    }
+}
+
+//MARK:面试题13:删除节点、利用后面节点覆盖要删除的节点， 假设链表中无重复节点
+void RemoveNode(ListNode **pHead, int value) {
+    if (*pHead == NULL || pHead == NULL) {
+        return;
+    }
+    ListNode *pToBeDeleted = nullptr;
+    if ((*pHead)->m_nValue == value) {
+        pToBeDeleted = *pHead;
+        *pHead = (*pHead)->m_pNext;
+    } else {
+        ListNode *pNode = *pHead;
+        while (pNode->m_pNext && pNode->m_pNext->m_nValue != value) {
+            pNode = pNode->m_pNext;
+        }
+        if (pNode->m_pNext && pNode->m_pNext->m_nValue == value) {
+            pToBeDeleted = pNode->m_pNext;
+            pNode->m_pNext = pNode->m_pNext->m_pNext;
+        }
+        
+    }
+    if (pToBeDeleted != nullptr) {
+        delete pToBeDeleted;
+        pToBeDeleted = nullptr;
+    }
+}
+//MARK:面试题13:o(1)时间内删除节点、利用后面节点覆盖要删除的节点
+void DeleteNode(ListNode **pListHead, ListNode *pToBeDeleted) {
+    if (!pListHead || !pToBeDeleted) {
+        return;
+    }
+    if (pToBeDeleted->m_pNext != NULL) {//删除的不是尾节点
+        ListNode *pNext = pToBeDeleted->m_pNext;
+        pToBeDeleted->m_nValue = pNext->m_nValue;
+        pToBeDeleted->m_pNext = pNext->m_pNext;
+        delete pNext;
+        pNext = NULL;
+    } else if(*pListHead == pToBeDeleted){//只有一个节点
+        delete pToBeDeleted;
+        pToBeDeleted = NULL;
+        *pListHead = NULL;
+    } else {//删除的是尾节点
+        ListNode *pNode = *pListHead;
+        while (pNode->m_pNext != pToBeDeleted) {
+            pNode = pNode->m_pNext;
+        }
+        pNode->m_pNext = NULL;
+        delete pToBeDeleted;
+        pToBeDeleted = NULL;
+    }
+}
+
+
 void PrintLinkList(ListNode *pHead) {
     while (pHead) {
         cout << pHead->m_nValue << " ";
@@ -320,10 +344,19 @@ int main(int argc, const char * argv[]) {
     ListNode *head = new ListNode(5);
     AddNodeAtTail(&head, 4);
     AddNodeAtTail(&head, 3);
+    AddNodeAtTail(&head, 3);
+    AddNodeAtTail(&head, 2);
+    AddNodeAtTail(&head, 1);
     PrintLinkList(head);
-    ReverseList(&head);
-    PrintLinkList(head);
-    RemoveNode(&head, 4);
+    
+//    ReverseList(&head);
+//    PrintLinkList(head);
+//
+//    RemoveNode(&head, 4);
+//    PrintLinkList(head);
+//
+//    ReversePrintList(head);
+    RemoveDuplicateNodes(head);
     PrintLinkList(head);
     
     return 0;

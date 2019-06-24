@@ -68,7 +68,6 @@ int StrToInt(const char *str) {
     return (int)num;
 }
 
-
 void ReverseWord(char *pBegin, char *pEnd) {
     if (pBegin == NULL || pEnd == NULL) {
         return;
