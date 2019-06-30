@@ -11,7 +11,7 @@
 #include <stack>
 #include <queue>
 using namespace std;
-
+//MARK:二叉搜索树数据结构
 typedef struct BSTreeNode {
     int value;
     BSTreeNode *left;
@@ -21,13 +21,61 @@ typedef struct BSTreeNode {
     
 }*BSTree;
 
-
+//MARK:二叉树数据结构
 struct BNTreeNode {
     int m_nValue;
     BNTreeNode *m_pLeft;
     BNTreeNode *m_pRight;
     BNTreeNode(int x): m_nValue(x),m_pLeft(nullptr),m_pRight(nullptr){}
 };
+
+void BST_InsertNode(BSTreeNode **root, int value) {
+    BSTreeNode *node =  new BSTreeNode(value);
+    if (*root == nullptr) {
+        *root = node;
+        return;
+    }
+    if (value <= (*root)->value) {
+        if ((*root)->left) {
+            BST_InsertNode(&(*root)->left, value);
+        } else {
+            (*root)->left = node;
+        }
+    } else {
+        if ((*root)->right) {
+            BST_InsertNode(&(*root)->right, value);
+        } else {
+            (*root)->right = node;
+        }
+    }
+}
+
+//MARK:二叉搜索树查找
+BSTreeNode* BST_SearchRecursive(BSTree root, int k) {
+    if (root == NULL || root->value == k) {
+        return root;
+    }
+    if (k < root->value) {
+        return BST_SearchRecursive(root->left, k);
+    } else {
+        return BST_SearchRecursive(root->right, k);
+    }
+    
+}
+
+BSTreeNode* BST_SearchNoRecursive(BSTree root, int k) {
+    if (root == NULL || root->value == k) {
+        return root;
+    }
+    while (root && root->value != k) {
+        if (k < root->value) {
+            root = root->left;
+        } else {
+            root = root->right;
+        }
+    }
+    return root;
+}
 
 //MARK:二叉树叶子节点数
 int BT_LefeCount(BNTreeNode *pRoot) {
@@ -198,19 +246,34 @@ void BT_insertNode(BNTreeNode **pRoot, int value) {
 
 
 int main(int argc, const char * argv[]) {
-    BNTreeNode *root = nullptr;
-    BT_insertNode(&root, 5);
-    BT_insertNode(&root, 3);
-    BT_insertNode(&root, 7);
-    BT_insertNode(&root, 1);
-    BT_insertNode(&root, 4);
-    BT_insertNode(&root, 6);
-    BT_insertNode(&root, 9);
+//    BNTreeNode *root = nullptr;
+//
+//    BT_insertNode(&root, 5);
+//    BT_insertNode(&root, 3);
+//    BT_insertNode(&root, 7);
+//    BT_insertNode(&root, 1);
+//    BT_insertNode(&root, 4);
+//    BT_insertNode(&root, 6);
+//    BT_insertNode(&root, 9);
     
-    BT_BFSTree(root);
+//    BT_BFSTree(root);
     
 //    cout << BT_LefeCount(root) << endl;
     
+//    BSTreeNode *node = BST_SearchRecursive(root, 7);
+
+    BSTreeNode *root = nullptr;
+    
+    BST_InsertNode(&root, 5);
+    BST_InsertNode(&root, 3);
+    BST_InsertNode(&root, 7);
+    BST_InsertNode(&root, 1);
+    BST_InsertNode(&root, 4);
+    BST_InsertNode(&root, 6);
+    BST_InsertNode(&root, 9);
+    
+    
+    BSTreeNode *node = BST_SearchNoRecursive(root, 7);
     
     return 0;
 }

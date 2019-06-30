@@ -47,57 +47,6 @@ BinarySearchTreeNode *KthNode(BinarySearchTreeNode *pRoot, int k) {
     return nullptr;
 }
 
-//MARK:二叉搜索树的插入
-int BST_Insert(BSTree &T, int k, BinarySearchTreeNode *parent=NULL) {
-    if (T == NULL) {//空树
-        T = (BSTree)malloc(sizeof(BinarySearchTreeNode));
-        T->key = k;
-        T->right = NULL;
-        T->left = NULL;
-        T->parent = parent;
-        return 1;
-    } else if (k == T->key) {//树中存在相同关键字
-        return 0;
-    } else if (k < T->key) {
-        return BST_Insert(T->left, k, T);
-    } else {
-        return BST_Insert(T->right, k, T);
-    }
-}
-
-
-//MARK: 构建二叉搜索树
-void Create_BST(BSTree &T, int arr[], int n) {
-    T = NULL; //初始化一颗空树
-    for (int i = 0; i < n; ++i) {
-        BST_Insert(T, arr[i]);
-    }
-}
-
-//MARK:二叉搜索树查找
-BinarySearchTreeNode* BST_Search(BSTree T, int k) {
-    if (T == NULL || k == T->key) {
-        return T;
-    }
-    
-    if (k < T->key) {
-        return BST_Search(T->left, k);
-    } else {
-        return BST_Search(T->right, k);
-    }
-}
-
-BinarySearchTreeNode* BST_Search_NonRecur(BSTree T, int k) {
-    while (T != NULL && k != T->key) {
-        if (k < T->key) {
-            T = T->left;
-        } else {
-            T = T->right;
-        }
-    }
-    return T;
-}
-
 //MARK:二叉搜索树的最大最小值
 BinarySearchTreeNode* BST_Minimum(BSTree T){
     while (T->left != NULL) {
