@@ -10,6 +10,7 @@
 #include <vector>
 #include <iostream>
 using namespace std;
+
 //MARK:二分查找
 int BinarySearch(int key, int array[], int length) {
     if (length == 0) {

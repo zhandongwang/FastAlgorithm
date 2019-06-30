@@ -15,6 +15,7 @@
 		239D7BB622BA531300009809 /* Search.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 239D7BB422BA531300009809 /* Search.cpp */; };
 		23A9909E21CBB39500835701 /* BinaryTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23A9909C21CBB39500835701 /* BinaryTree.cpp */; };
 		23E8B79921E5E98A00FD446F /* Sort.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23E8B79721E5E98A00FD446F /* Sort.cpp */; };
+		23F3758922C89FB8000FEDA5 /* Tree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F3758722C89FB8000FEDA5 /* Tree.cpp */; };
 		23FEC72321C26A8D008891C9 /* LinkList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23FEC72121C26A8D008891C9 /* LinkList.cpp */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,8 @@
 		23A9909D21CBB39500835701 /* BinaryTree.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BinaryTree.hpp; sourceTree = "<group>"; };
 		23E8B79721E5E98A00FD446F /* Sort.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sort.cpp; sourceTree = "<group>"; };
 		23E8B79821E5E98A00FD446F /* Sort.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sort.hpp; sourceTree = "<group>"; };
+		23F3758722C89FB8000FEDA5 /* Tree.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tree.cpp; sourceTree = "<group>"; };
+		23F3758822C89FB8000FEDA5 /* Tree.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Tree.hpp; sourceTree = "<group>"; };
 		23FEC72121C26A8D008891C9 /* LinkList.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LinkList.cpp; sourceTree = "<group>"; };
 		23FEC72221C26A8D008891C9 /* LinkList.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LinkList.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -93,6 +96,8 @@
 				2336778B21CE44B0000091AA /* Queue.cpp */,
 				2336778C21CE44B0000091AA /* Queue.hpp */,
 				23E8B79721E5E98A00FD446F /* Sort.cpp */,
+				23F3758722C89FB8000FEDA5 /* Tree.cpp */,
+				23F3758822C89FB8000FEDA5 /* Tree.hpp */,
 				23E8B79821E5E98A00FD446F /* Sort.hpp */,
 				239D7BB422BA531300009809 /* Search.cpp */,
 				239D7BB522BA531300009809 /* Search.hpp */,
@@ -167,6 +172,7 @@
 				23E8B79921E5E98A00FD446F /* Sort.cpp in Sources */,
 				2308186521F5C5D00091EA18 /* Array.cpp in Sources */,
 				237B0A36226998D0001A3837 /* Heap.cpp in Sources */,
+				23F3758922C89FB8000FEDA5 /* Tree.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
