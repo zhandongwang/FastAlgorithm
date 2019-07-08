@@ -87,12 +87,12 @@ ListNode* RotateList(ListNode *head, int k) {
         listNum++;
         tail = tail->m_pNext;
     }
-    tail->m_pNext = head;
+    tail->m_pNext = head;//形成环
     int newHeadIndex = listNum - k%listNum;
     for (int i = 0 ; i < newHeadIndex; ++i) {
         tail = tail->m_pNext;
     }
-    head = tail->m_pNext;
+    head = tail->m_pNext;//断开环
     tail->m_pNext = NULL;
     
     return head;
