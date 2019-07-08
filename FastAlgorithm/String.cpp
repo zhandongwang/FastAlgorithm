@@ -188,10 +188,45 @@ void Print1ToMaxOfDigits(int n) {
 }
 
 
+void ParseExpression() {
+    string str = "(1+((2+3)*(4*5)))";
+    stack<int> nums;
+    stack<char> ops;
+    for (int idx = 0; idx < str.length(); ++idx) {
+        char temp = str.at(idx);
+        if (temp == '(') {
+            
+        } else if (temp == '+' || temp == '-' || temp == '*' || temp == '/') {
+            ops.push(temp);
+        } else if (temp == ')') {
+            char op = ops.top();
+            ops.pop();
+            int rightNum = nums.top();
+            nums.pop();
+            int leftNum = nums.top();
+            nums.pop();
+            
+            if (op == '+') {
+                rightNum = leftNum + rightNum;
+            } else if (op == '-') {
+                rightNum = leftNum - rightNum;
+            } else if (op == '*') {
+                rightNum = leftNum * rightNum;
+            } else if (op == '/') {
+                rightNum = leftNum / rightNum;
+            }
+            nums.push(rightNum);
+        } else {
+            nums.push(temp - '0');
+        }
+    }
+    cout << nums.top() << endl;
+}
 
-//int main(int argc, const char * argv[]) {
-////    char digit[] = "";
-////    cout << StrToInt(digit)<< endl <<"g_nStatus is:" << g_nStatus <<endl;
+
+int main(int argc, const char * argv[]) {
+//    char digit[] = "";
+//    cout << StrToInt(digit)<< endl <<"g_nStatus is:" << g_nStatus <<endl;
 //    Print1ToMaxOfDigits(3);
 ////    int num = 0;
 ////    for (int i = 0 ; i < 10 ; ++i) {
@@ -200,10 +235,10 @@ void Print1ToMaxOfDigits(int n) {
 ////    }
 //    struct Book book1;
 //    struct Book book2;
-//    
+//
 //    strcpy(book1.title, "C++");
 //    book1.book_id = 22;
-//    
+//
 //    cout << book1.book_id << book1.title;
-//    
-//}
+
+}

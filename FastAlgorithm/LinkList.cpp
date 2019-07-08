@@ -426,7 +426,7 @@ void DeleteNode(ListNode **pListHead, ListNode *pToBeDeleted) {
     }
 }
 
-
+/*
 int main(int argc, const char * argv[]) {
     ListNode *head = new ListNode(1);
     AddNodeAtTail(&head, 2);
@@ -461,4 +461,4 @@ int main(int argc, const char * argv[]) {
     return 0;
 }
 
-
+*/
