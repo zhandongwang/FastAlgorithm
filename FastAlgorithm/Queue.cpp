@@ -46,20 +46,20 @@ private:
 struct ListNode {
      int val;
      ListNode *next;
-     ListNode(int x) : val(x), next(NULL) {}
+     ListNode(int x) : val(x), next(nullptr) {}
  };
 
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
         if (!head) {
-            return NULL;
+            return nullptr;
         }
-        if (head->next == NULL) {
+        if (head->next == nullptr) {
             return head;
         }
         ListNode *current = head;
-        while (current->next != NULL) {
+        while (current->next != nullptr) {
             if (current->next->val == current->val) {
                 current->next = current->next->next;
             } else {

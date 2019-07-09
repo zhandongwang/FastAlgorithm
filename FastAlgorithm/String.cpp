@@ -50,8 +50,8 @@ long long StrToIntCore(const char *digit, bool minus) {
 int StrToInt(const char *str) {
     g_nStatus = kInValid;
     long long num = 0;
-    //字符串为NULL或""
-    if (str == NULL || *str == '\0') {
+    //字符串为nullptr或""
+    if (str == nullptr || *str == '\0') {
         return (int)num;
     }
     bool minus = false;
@@ -69,7 +69,7 @@ int StrToInt(const char *str) {
 }
 
 void ReverseWord(char *pBegin, char *pEnd) {
-    if (pBegin == NULL || pEnd == NULL) {
+    if (pBegin == nullptr || pEnd == nullptr) {
         return;
     }
     while (pBegin < pEnd) {
@@ -84,8 +84,8 @@ void ReverseWord(char *pBegin, char *pEnd) {
 //面试题42：反转字符串  eg I am a student --> student a am I
 
 char* ReverseSentence(char *pdata) {
-    if (pdata == NULL) {
-        return NULL;
+    if (pdata == nullptr) {
+        return nullptr;
     }
     
     char *pBegin = pdata;
@@ -114,7 +114,7 @@ char* ReverseSentence(char *pdata) {
 
 //面试题4:替换字符串中的空格为20%  从后向前
 void replaceBlank(char string[], int length) {
-    if (string == NULL || length <= 0) {
+    if (string == nullptr || length <= 0) {
         return;
     }
     int originalLength = 0;
@@ -223,7 +223,7 @@ void ParseExpression() {
     cout << nums.top() << endl;
 }
 
-
+/*
 int main(int argc, const char * argv[]) {
 //    char digit[] = "";
 //    cout << StrToInt(digit)<< endl <<"g_nStatus is:" << g_nStatus <<endl;
@@ -242,3 +242,4 @@ int main(int argc, const char * argv[]) {
 //    cout << book1.book_id << book1.title;
 
 }
+ */

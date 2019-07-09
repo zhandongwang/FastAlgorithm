@@ -164,7 +164,7 @@ int singleNumber(int array[], int length) {
 //MARK:面试题31:连续子数组的最大和
 bool g_InvalidInput = false;
 int MaxSumOfSubArray(int *pdata, int nLength) {
-    if (pdata == NULL || nLength <= 0) {
+    if (pdata == nullptr || nLength <= 0) {
         g_InvalidInput = true;
         return 0;
     }
@@ -190,7 +190,7 @@ int MaxSumOfSubArray(int *pdata, int nLength) {
 //MARK:面试题14，调整数组元素顺序，使奇数位于偶数前面
 //思路：元素交换
 void ResortArray(int *pData, unsigned int length, bool(*func)(int)) {
-    if (pData == NULL || length == 0) {
+    if (pData == nullptr || length == 0) {
         return;
     }
     int *pBegin = pData;
@@ -237,7 +237,7 @@ int majorityElement(vector<int>& nums) {
 bool findValue(int* matrix, int rows, int columns, int number) {
     bool found = false;
     
-    if (matrix != NULL && rows > 0 && columns > 0) {
+    if (matrix != nullptr && rows > 0 && columns > 0) {
         int row = 0;
         int column =  columns - 1;
         

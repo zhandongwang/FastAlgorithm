@@ -14,7 +14,7 @@ using namespace std;
 struct ListNode {
     int m_nValue;
     ListNode *m_pNext;
-    ListNode(int x):m_nValue(x),m_pNext(NULL){}
+    ListNode(int x):m_nValue(x),m_pNext(nullptr){}
 };
 
 void PrintLinkList(ListNode *pHead) {
@@ -28,7 +28,7 @@ void PrintLinkList(ListNode *pHead) {
 unsigned int GetListLength(ListNode *pHead) {
     unsigned int length = 0;
     ListNode *node = pHead;
-    while (node->m_pNext != NULL) {
+    while (node->m_pNext != nullptr) {
         ++length;
         node = node->m_pNext;
     }
@@ -37,12 +37,12 @@ unsigned int GetListLength(ListNode *pHead) {
 
 //MARK:面试题56 链表中环的入口节点  https://www.qiujiawei.com/leetcode-problem-142/
 ListNode *findCycleEntry(ListNode *head) {
-    if (!head || head->m_pNext == NULL) {
-        return NULL;
+    if (!head || head->m_pNext == nullptr) {
+        return nullptr;
     }
     ListNode *pFast = head;
     ListNode *pSlow = head;
-    while (pFast != NULL && pFast->m_pNext->m_pNext != NULL) {
+    while (pFast != nullptr && pFast->m_pNext->m_pNext != nullptr) {
         pFast = pFast->m_pNext->m_pNext;
         pSlow = pSlow->m_pNext;
         if (pFast == pSlow) {
@@ -60,12 +60,12 @@ ListNode *findCycleEntry(ListNode *head) {
 
 //MARK:链表是否有环
 bool hasCircle(ListNode *head) {
-    if (!head || head->m_pNext == NULL) {
+    if (!head || head->m_pNext == nullptr) {
         return false;
     }
     ListNode *pFast = head;
     ListNode *pSlow = head;
-    while (pFast != NULL && pFast->m_pNext->m_pNext != NULL) {
+    while (pFast != nullptr && pFast->m_pNext->m_pNext != nullptr) {
         pFast = pFast->m_pNext->m_pNext;
         pSlow = pSlow->m_pNext;
         if (pFast == pSlow) {
@@ -78,8 +78,8 @@ bool hasCircle(ListNode *head) {
 
 //MARK:旋转列表
 ListNode* RotateList(ListNode *head, int k) {
-    if (head == NULL) {
-        return NULL;
+    if (head == nullptr) {
+        return nullptr;
     }
     int listNum = 1;
     ListNode *tail = head;
@@ -93,7 +93,7 @@ ListNode* RotateList(ListNode *head, int k) {
         tail = tail->m_pNext;
     }
     head = tail->m_pNext;//断开环
-    tail->m_pNext = NULL;
+    tail->m_pNext = nullptr;
     
     return head;
 }
@@ -101,18 +101,18 @@ ListNode* RotateList(ListNode *head, int k) {
 
 //MARK:将偶数位节点排到奇数位节点后面
 ListNode* oddEvenList(ListNode *head) {
-    if (head == NULL || head->m_pNext == NULL) {
+    if (head == nullptr || head->m_pNext == nullptr) {
         return head;
     }
-    ListNode *first = NULL;
-    ListNode *second = NULL;
-    ListNode *curFirst = NULL;
-    ListNode *curSecond = NULL;
+    ListNode *first = nullptr;
+    ListNode *second = nullptr;
+    ListNode *curFirst = nullptr;
+    ListNode *curSecond = nullptr;
     ListNode *cur = head;//先处理奇数
     while (cur) {
         ListNode *tempNode = cur->m_pNext;
-        cur->m_pNext = NULL;
-        if (first == NULL) {
+        cur->m_pNext = nullptr;
+        if (first == nullptr) {
             first = cur;
             curFirst = first;
         } else {
@@ -122,8 +122,8 @@ ListNode* oddEvenList(ListNode *head) {
         cur = tempNode;
         if (cur) {//有偶数继续处理偶数
             ListNode *tempNode2 = cur->m_pNext;
-            cur->m_pNext = NULL;
-            if (second == NULL) {
+            cur->m_pNext = nullptr;
+            if (second == nullptr) {
                 second = cur;
                 curSecond = second;
             } else {
@@ -157,8 +157,8 @@ ListNode *findFirstCommonNode(ListNode *pHead1, ListNode *pHead2) {
     for (int i = 0; i < diffLength; ++i) {
         pListLong = pListLong->m_pNext;
     }
-    while (pListLong->m_pNext != NULL &&
-           pListShort->m_pNext != NULL &&
+    while (pListLong->m_pNext != nullptr &&
+           pListShort->m_pNext != nullptr &&
            pListLong->m_nValue != pListShort->m_nValue) {
         pListShort = pListShort->m_pNext;
         pListLong = pListLong->m_pNext;
@@ -170,15 +170,15 @@ ListNode *findFirstCommonNode(ListNode *pHead1, ListNode *pHead2) {
 
 //MARK:面试题15 链表中倒数第k个节点， 快慢指针,快指针先走k步
 ListNode* FindKthToTail(ListNode *pHead, int k) {
-    if (pHead == NULL || k <= 0) {
-        return NULL;
+    if (pHead == nullptr || k <= 0) {
+        return nullptr;
     }
     ListNode *pFast = pHead;
     for (int i = 0; i < k-1; ++i) {//不足k个节点
         if (pFast->m_pNext) {
             pFast = pFast->m_pNext;
         } else {
-            return NULL;
+            return nullptr;
         }
     }
     ListNode *pSlow = pHead;
@@ -218,13 +218,13 @@ ListNode *addTwoSum(ListNode *pHead1, ListNode *pHead2) {
 
 //MARK:面试题17 merge two sorted list
 ListNode* mergeTwoSortedList(ListNode *pHead1, ListNode *pHead2) {
-    if (pHead1 == NULL) {
+    if (pHead1 == nullptr) {
         return pHead2;
     }
-    if (pHead2 == NULL) {
+    if (pHead2 == nullptr) {
         return pHead1;
     }
-    ListNode *pRetHead = NULL;
+    ListNode *pRetHead = nullptr;
     if (pHead1->m_nValue < pHead2->m_nValue) {
         pRetHead = pHead1;
         pRetHead->m_pNext = mergeTwoSortedList(pHead1->m_pNext, pHead2);
@@ -305,11 +305,11 @@ ListNode* ReverseList(ListNode **pHead) {
 ListNode* AddNodeAtTail(ListNode **pHead, int value) {
     ListNode *node = new ListNode(value);
     //链表为空
-    if (*pHead == NULL) {
+    if (*pHead == nullptr) {
         *pHead = node;
     } else {
         ListNode *pNode = *pHead;
-        while (pNode->m_pNext != NULL) {
+        while (pNode->m_pNext != nullptr) {
             pNode = pNode->m_pNext;
             
         }
@@ -322,19 +322,19 @@ ListNode* AddNodeAtTail(ListNode **pHead, int value) {
 //只有当前节点既不等于上一个节点也不等于下一个节点的值，才不重复
 ListNode* RemoveDuplicateNodesII(ListNode *pHead) {
     //如果为空或者只有一个节点，直接返回
-    if (!pHead || pHead->m_pNext == NULL) {
+    if (!pHead || pHead->m_pNext == nullptr) {
         return pHead;
     }
     ListNode *resultHead = pHead;
-    ListNode *p = NULL;
-    ListNode *lastRepeatNode = NULL;
-    while (pHead != NULL) {
+    ListNode *p = nullptr;
+    ListNode *lastRepeatNode = nullptr;
+    while (pHead != nullptr) {
         //是尾节点，或者不是尾节点且当前节点值不等于下一个节点的值
         if ((pHead->m_pNext && pHead->m_nValue != pHead->m_pNext->m_nValue) ||
-            pHead->m_pNext == NULL) {
+            pHead->m_pNext == nullptr) {
             //没有上一个重复节点，或者有上一个重复节点但其值与当前节点的值不等
-            if (lastRepeatNode == NULL || lastRepeatNode->m_nValue != pHead->m_nValue) {
-                if (p == NULL) {
+            if (lastRepeatNode == nullptr || lastRepeatNode->m_nValue != pHead->m_nValue) {
+                if (p == nullptr) {
                     resultHead = pHead;
                     p = resultHead;
                 } else {
@@ -358,7 +358,7 @@ ListNode* RemoveDuplicateNodesII(ListNode *pHead) {
 //MARK:Remove Duplicates from sorted List
 ListNode* RemoveDuplicateNodes(ListNode *pHead) {
     //如果为空或者只有一个节点，直接返回
-    if (!pHead || pHead->m_pNext == NULL) {
+    if (!pHead || pHead->m_pNext == nullptr) {
         return pHead;
     }
     ListNode *resultHead = pHead;
@@ -377,15 +377,15 @@ ListNode* RemoveDuplicateNodes(ListNode *pHead) {
 
 //MARK:链表节点删除，有重复节点
 void RemoveNodes(ListNode *pHead, int value) {
-    if (pHead == NULL) {
+    if (pHead == nullptr) {
         return;
     }
-    ListNode *curr = NULL;
-    ListNode *rHead = NULL;
+    ListNode *curr = nullptr;
+    ListNode *rHead = nullptr;
     while (pHead) {
         //1.缓存下一个节点，防止断裂
         ListNode *pTempNode = pHead->m_pNext;
-        pHead->m_pNext = NULL;
+        pHead->m_pNext = nullptr;
         //值不同就加入到结果链表
         if (pHead->m_nValue != value) {
             if (!rHead) {
@@ -406,7 +406,7 @@ void DeleteNode(ListNode **pListHead, ListNode *pToBeDeleted) {
     if (!pListHead || !pToBeDeleted) {
         return;
     }
-    if (pToBeDeleted->m_pNext != NULL) {//删除的不是尾节点
+    if (pToBeDeleted->m_pNext != nullptr) {//删除的不是尾节点
         ListNode *pNext = pToBeDeleted->m_pNext;
         //用后面节点的值覆盖给要删除的节点
         pToBeDeleted->m_nValue = pNext->m_nValue;
@@ -414,15 +414,15 @@ void DeleteNode(ListNode **pListHead, ListNode *pToBeDeleted) {
         pToBeDeleted->m_pNext = pNext->m_pNext;
         //删除后面节点
         delete pNext;
-        pNext = NULL;
+        pNext = nullptr;
     } else {//删除的是尾节点
         ListNode *pNode = *pListHead;
         while (pNode->m_pNext != pToBeDeleted) {
             pNode = pNode->m_pNext;
         }
-        pNode->m_pNext = NULL;
+        pNode->m_pNext = nullptr;
         delete pToBeDeleted;
-        pToBeDeleted = NULL;
+        pToBeDeleted = nullptr;
     }
 }
 

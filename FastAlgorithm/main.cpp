@@ -69,8 +69,8 @@ int reverse(int x) {
 ////
 //    BinaryTreeNode *root = new BinaryTreeNode();
 //    root->m_nValue = 8;
-//    root->m_pLeft = NULL;
-//    root->m_pRight = NULL;
+//    root->m_pLeft = nullptr;
+//    root->m_pRight = nullptr;
 //
 //    InsertNode(root, 6);
 //    InsertNode(root, 10);

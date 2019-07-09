@@ -19,7 +19,7 @@ typedef struct BinarySearchTreeNode {
     BinarySearchTreeNode* left;
     BinarySearchTreeNode* right;
     BinarySearchTreeNode* parent;
-    BinarySearchTreeNode(int key):key(key),left(NULL),right(NULL), parent(NULL){}
+    BinarySearchTreeNode(int key):key(key),left(nullptr),right(nullptr), parent(nullptr){}
 }*BSTree;
 //MARK:二叉树搜索树的第k个节点
 BinarySearchTreeNode *KthNode(BinarySearchTreeNode *pRoot, int k) {
@@ -49,14 +49,14 @@ BinarySearchTreeNode *KthNode(BinarySearchTreeNode *pRoot, int k) {
 
 //MARK:二叉搜索树的最大最小值
 BinarySearchTreeNode* BST_Minimum(BSTree T){
-    while (T->left != NULL) {
+    while (T->left != nullptr) {
         T = T->left;
     }
     return T;
 }
 
 BinarySearchTreeNode* BST_Maximum(BSTree T) {
-    while (T->right != NULL) {
+    while (T->right != nullptr) {
         T = T->right;
     }
     return T;
@@ -69,11 +69,11 @@ BinarySearchTreeNode* BST_Maximum(BSTree T) {
 //2.若x的右子树为空，为了寻找其后继，从x开始向上查找，知道遇到一个祖先节点y,y的左儿子也是x的祖先，则y就是x的后继
 //也就是，对于y，x是y的前驱，x应当是y的左子树中的key最大的
 BinarySearchTreeNode* BST_Successor(BinarySearchTreeNode *node){
-    if (node->right != NULL) {
+    if (node->right != nullptr) {
         return BST_Minimum(node->right);
     }
     BinarySearchTreeNode *p = node->parent;
-    while (p != NULL && p ->right == node) {
+    while (p != nullptr && p ->right == node) {
         node = p;
         p = p->parent;
     }
@@ -81,11 +81,11 @@ BinarySearchTreeNode* BST_Successor(BinarySearchTreeNode *node){
 }
 
 BinarySearchTreeNode* BST_Predecessor(BinarySearchTreeNode *node){
-    if (node->left != NULL) {
+    if (node->left != nullptr) {
         return BST_Maximum(node->left);
     }
     BinarySearchTreeNode* p = node->parent;
-    while (p != NULL && p->left == node) {
+    while (p != nullptr && p->left == node) {
         node = p;
         p = p->parent;
     }
@@ -99,7 +99,7 @@ struct BinaryTreeNode {
     int m_nValue;
     BinaryTreeNode *m_pLeft;
     BinaryTreeNode *m_pRight;
-    BinaryTreeNode(int x):m_nValue(x),m_pLeft(NULL), m_pRight(NULL){}
+    BinaryTreeNode(int x):m_nValue(x),m_pLeft(nullptr), m_pRight(nullptr){}
 };
 
 //MARK:二叉树的序列化与反序列化
@@ -120,7 +120,7 @@ BinaryTreeNode* aDeSerialize(istringstream& in){
     string val;
     in >> val;//从流中读取值到变量val
     if (val == "$") {
-        return NULL;
+        return nullptr;
     }
     BinaryTreeNode *root = new BinaryTreeNode(stoi(val));
     root->m_pLeft = aDeSerialize(in);
@@ -131,7 +131,7 @@ BinaryTreeNode* aDeSerialize(istringstream& in){
 
 
 void Serialize(BinaryTreeNode* pRoot, ostream& stream) {
-    if (pRoot == NULL) {
+    if (pRoot == nullptr) {
         stream << "$,";
         return;
     }
@@ -179,7 +179,7 @@ void DeSerialize(BinaryTreeNode* pRoot, istream& stream) {
 //MARK:面试题50 二叉树中两个节点的最低公共祖先
 //MARK:最低公共祖先--是二叉搜索树
 BinaryTreeNode* BST_lowestCommomAncestor(BinaryTreeNode *pRoot,BinaryTreeNode * pFirst,BinaryTreeNode *pSecond) {
-    if (pRoot == NULL || pRoot == pFirst || pRoot == pSecond) {
+    if (pRoot == nullptr || pRoot == pFirst || pRoot == pSecond) {
         return pRoot;
     }
     if (pRoot->m_nValue > pFirst->m_nValue && pRoot->m_nValue > pSecond->m_nValue ) {
@@ -199,14 +199,14 @@ BinaryTreeNode* BST_lowestCommomAncestor(BinaryTreeNode *pRoot,BinaryTreeNode * 
 
 //MARK:最低公共祖先--不是二叉搜索树，节点的数据结构中也没有有指向父节点的指针
 bool getNodePath(BinaryTreeNode* root, BinaryTreeNode *node, vector<BinaryTreeNode*>& path) {
-    if (root == NULL) {
+    if (root == nullptr) {
         return false;
     }
     if (root->m_nValue == node->m_nValue) {
         return true;
     }
     //有无子节点
-    if (root->m_pLeft != NULL) {
+    if (root->m_pLeft != nullptr) {
         path.push_back(root->m_pLeft);
         if (getNodePath(root->m_pLeft, node, path)) {
             return true;
@@ -214,7 +214,7 @@ bool getNodePath(BinaryTreeNode* root, BinaryTreeNode *node, vector<BinaryTreeNo
         //无左子树
         path.pop_back();
     }
-    if (root->m_pRight != NULL) {
+    if (root->m_pRight != nullptr) {
         path.push_back(root->m_pRight);
         if (getNodePath(root->m_pRight, node, path)) {
             return true;
@@ -226,8 +226,8 @@ bool getNodePath(BinaryTreeNode* root, BinaryTreeNode *node, vector<BinaryTreeNo
 }
 
 BinaryTreeNode* lowestCommomAncestor(BinaryTreeNode *pRoot,BinaryTreeNode * pFirst,BinaryTreeNode *pSecond) {
-    if (pRoot == NULL || pFirst == NULL || pSecond == NULL) {
-        return NULL;
+    if (pRoot == nullptr || pFirst == nullptr || pSecond == nullptr) {
+        return nullptr;
     }
     vector<BinaryTreeNode*>firstPath;
     vector<BinaryTreeNode*>secondPath;
@@ -237,7 +237,7 @@ BinaryTreeNode* lowestCommomAncestor(BinaryTreeNode *pRoot,BinaryTreeNode * pFir
     getNodePath(pRoot, pFirst, firstPath);
     getNodePath(pRoot, pSecond, secondPath);
     //获取两条路径的最后一个公共节点
-    BinaryTreeNode* retNode = NULL;
+    BinaryTreeNode* retNode = nullptr;
     for (int i = 0 ; i < firstPath.size() && i < secondPath.size(); ++i) {
         if (firstPath.at(i)->m_nValue == secondPath.at(i)->m_nValue) {
             retNode = firstPath.at(i);
@@ -252,7 +252,7 @@ BinaryTreeNode* lowestCommomAncestor(BinaryTreeNode *pRoot,BinaryTreeNode * pFir
 
 //MARK:leetcode 993. 二叉树的堂兄弟节点判断(Cousins in Binary Tree)
 bool getPath(BinaryTreeNode* root, int x, vector<int>& path) {
-    if (root == NULL) {
+    if (root == nullptr) {
         return false;
     } else {
         path.push_back(root->m_nValue);
@@ -333,7 +333,7 @@ int GetLastK(int *data, int length, int k, int start ,int end) {
 //MARK:面试题38:数字在排序数组中出现的次数
 int GetNumberOfK(int *data, int length, int k) {
     int number = 0;
-    if (data != NULL && length > 0) {
+    if (data != nullptr && length > 0) {
         int first = GetFirstK(data, length, k, 0, length-1);
         int last = GetLastK(data, length, k, 0, length-1);
         
@@ -349,7 +349,7 @@ int GetNumberOfK(int *data, int length, int k) {
 //第一部分是左子树，都比根节点小
 //第二部分是右子树，都比根节点大
 bool VerifySequenceOfBST(int sequence[], int length) {
-    if (sequence == NULL || length <= 0) {
+    if (sequence == nullptr || length <= 0) {
         return false;
     }
     int root = sequence[length - 1];
@@ -382,7 +382,7 @@ bool VerifySequenceOfBST(int sequence[], int length) {
 //思路:每次打印一个节点的时候，若果该节点有子节点，则把该节点的子节点入队。
 //然后从队列头部取出一个节点
 void PrintBinaryTreeTopToBottom(BinaryTreeNode *pRoot) {
-    if (pRoot == NULL) {
+    if (pRoot == nullptr) {
         return;
     }
     queue<BinaryTreeNode *>nodeQueue;
@@ -404,10 +404,10 @@ void PrintBinaryTreeTopToBottom(BinaryTreeNode *pRoot) {
 
 
 bool DoesTreeHasTree2(BinaryTreeNode *pRoot1, BinaryTreeNode *pRoot2) {
-    if (pRoot2 == NULL) {
+    if (pRoot2 == nullptr) {
         return true;
     }
-    if (pRoot1 == NULL) {
+    if (pRoot1 == nullptr) {
         return false;
     }
     if (pRoot1->m_nValue != pRoot2->m_nValue) {
@@ -470,12 +470,12 @@ BinaryTreeNode* ConstructCore(int *startPreOrder, int *endPreOrder, int *startIn
     }
     
     
-    return NULL;
+    return nullptr;
 }
 
 BinaryTreeNode* Construct(int *preOrder, int *inOrder, int length) {
-    if (preOrder == NULL || inOrder == NULL || length <= 0) {
-        return NULL;
+    if (preOrder == nullptr || inOrder == nullptr || length <= 0) {
+        return nullptr;
     }
     return ConstructCore(preOrder, preOrder + length - 1, inOrder, inOrder + length - 1);
 }
