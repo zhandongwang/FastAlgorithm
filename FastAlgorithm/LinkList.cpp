@@ -191,7 +191,7 @@ ListNode* FindKthToTail(ListNode *pHead, int k) {
 }
 
 //MARK:Leetcode Add two sum
-ListNode *addTwoSum(ListNode *pHead1, ListNode *pHead2) {
+ListNode *addTwoNum(ListNode *pHead1, ListNode *pHead2) {
     ListNode *dummy = new ListNode(-1);
     ListNode *cur = dummy;
     int carry = 0;//进位
@@ -211,6 +211,34 @@ ListNode *addTwoSum(ListNode *pHead1, ListNode *pHead2) {
     }
     if (carry) {
         cur->m_pNext = new ListNode(1);
+    }
+    return dummy->m_pNext;
+}
+
+ListNode *subTwoNum (ListNode *pHead1, ListNode *pHead2) {
+    ListNode *dummy = new ListNode(-1);
+    ListNode *cur = dummy;
+    int num = 0;//标识借位
+    while (pHead1 || pHead2) {
+        int val1 = pHead1 ? pHead1->m_nValue : 0;
+        int val2 = pHead2 ? pHead2->m_nValue : 0;
+        int sub = 0;
+        val1 = val1 - num;
+        if (val1 >= val2) {
+            sub = val1 - val2;
+            num = 0;
+        } else {
+            sub = val1 + 10 - val2;
+            num = 1;
+        }
+        cur->m_pNext = new ListNode(sub);
+        cur = cur->m_pNext;
+        if (pHead1) {
+            pHead1 = pHead1->m_pNext;
+        }
+        if (pHead2) {
+            pHead2 = pHead2->m_pNext;
+        }
     }
     return dummy->m_pNext;
 }
@@ -288,7 +316,7 @@ ListNode* ReverseList(ListNode **pHead) {
     while (pCurrent) {
         //1.缓存pCurrent后面的节点，防止断开
         pNext = pCurrent->m_pNext;
-        //2.修改指针
+        //2.修改指针,pCurrent->m_pNext指向前面的节点
         pCurrent->m_pNext = pPre;
         //3.同步后移
         pPre = pCurrent;
@@ -426,19 +454,24 @@ void DeleteNode(ListNode **pListHead, ListNode *pToBeDeleted) {
     }
 }
 
+
 /*
 int main(int argc, const char * argv[]) {
-    ListNode *head = new ListNode(1);
-    AddNodeAtTail(&head, 2);
+    ListNode *head = new ListNode(2);
+    AddNodeAtTail(&head, 4);
     AddNodeAtTail(&head, 3);
-//    AddNodeAtTail(&head, 4);
-//    AddNodeAtTail(&head, 5);
-    PrintLinkList(head);
-    
-    ListNode *retHead = RotateList(head, 4);
     
     
-//    ReverseList(&head);
+    ListNode *head2 = new ListNode(5);
+    AddNodeAtTail(&head2, 6);
+    AddNodeAtTail(&head2, 4);
+//    PrintLinkList(head);
+    
+    ListNode *retHead = addTwoNum(head, head2);
+//    ListNode *retHead = subTwoNum(head2, head);
+    
+    
+    ReverseList(&retHead);
     PrintLinkList(retHead);
 //
 //    RemoveNode(&head, 4);

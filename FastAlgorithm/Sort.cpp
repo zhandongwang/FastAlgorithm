@@ -124,14 +124,62 @@ void BubbleSort(int a[], int len) {
     }
 }
 
+void Merge(int a[], int left, int mid, int right) {
+    int len1 = mid-left+1;
+    int len2 = right-mid;
+    //存入原内容
+    int *l1= new int[len1];
+    int *l2= new int[len2];
+    
+    for (int i=0; i < len1; ++i) {
+        l1[i] = a[left+i];
+    }
+    for (int j=0; j < len2; ++j) {
+        l2[j] = a[j+mid+1];
+    }
+    
+    int i = 0, j = 0;
+    while (i<len1 && j<len2) {
+        if (l1[i] < l2[j]) {
+            a[left++] = l1[i++];
+        } else {
+            a[left++] = l2[j++];
+            
+        }
+    }
+    while (i<len1) {
+        a[left++] = l1[i++];
+    }
+    while (j<len2) {
+        a[left++] = l2[j++];
+    }
+    
+    delete [] l1;
+    delete [] l2;
+}
 
-/*
+void MergSort(int a[], int left, int right) {
+    cout << "left=" << left << "right=" << right << endl;
+    if (left < right) {
+        int mid = (left + right) / 2;
+        MergSort(a, left, mid);
+        MergSort(a, mid+1, right);
+        Merge(a,left,mid, right);
+    } else {
+        cout << "returned by left == right" << endl;
+    }
+}
+
+
+
+
+
 int main(int argc, const char * argv[]) {
-    int a[] = {3,1,2,9,7,6,8,5,4};
+    int a[] = {3,1,2,4};
     int len = sizeof(a)/sizeof(int);
 //    BubbleSort2(a, 9);
-    InsertSort(a, len);
-    for (int i = 0; i < 9; ++i) {
+    MergSort(a, 0, 3);
+    for (int i = 0; i < 4; ++i) {
         cout << a[i] << " ";
     }
     cout << endl;
@@ -150,4 +198,4 @@ int main(int argc, const char * argv[]) {
 //    
 }
 
-*/
+

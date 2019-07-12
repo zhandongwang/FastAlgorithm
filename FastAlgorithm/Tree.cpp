@@ -51,6 +51,39 @@ void BST_InsertNode(BSTreeNode **root, int value) {
     }
 }
 
+//MARK:根据前序、中序序列构建二叉树
+BNTreeNode* ConstructTree2(int *preOrder,int *inOrder, int len) {
+    BNTreeNode *root = new BNTreeNode(preOrder[0]);
+    int subTreeLen = 0;
+    //在中序序列中没有找到前序序列的根节点
+    while (subTreeLen < len && inOrder[subTreeLen] != preOrder[0]) {
+        ++subTreeLen;
+    }
+    //有左子树
+    if (subTreeLen > 0) {
+        root->m_pLeft = ConstructTree2(preOrder+1, inOrder, subTreeLen);
+    }
+    //有右子树
+    if (len-1-subTreeLen > 0) {
+        root->m_pRight = ConstructTree2(preOrder+subTreeLen+1, inOrder+subTreeLen+1, len-1-subTreeLen);
+    }
+    
+    return root;
+}
+
+//MARK:镜像二叉树
+void MirroTree(BNTreeNode *pRoot) {
+    if (pRoot == nullptr) {
+        return;
+    }
+    BNTreeNode *temp = pRoot ->m_pLeft;
+    pRoot->m_pLeft = pRoot->m_pRight;
+    pRoot->m_pRight = temp;
+    MirroTree(pRoot->m_pLeft);
+    MirroTree(pRoot->m_pRight);
+    
+}
+
 
 bool DoseTreeHasTree2(BNTreeNode *pRoot1, BNTreeNode *pRoot2) {
     if (pRoot2 == nullptr) {
@@ -295,26 +328,23 @@ void BT_insertNode(BNTreeNode **pRoot, int value) {
     }
 }
 
-
+/*
 int main(int argc, const char * argv[]) {
-    BNTreeNode *root = nullptr;
-
-    BT_insertNode(&root, 5);
-    BT_insertNode(&root, 3);
-    BT_insertNode(&root, 7);
-    BT_insertNode(&root, 1);
-    BT_insertNode(&root, 4);
-    BT_insertNode(&root, 6);
-    BT_insertNode(&root, 9);
-    
-    BNTreeNode *root2 = nullptr;
-    BT_insertNode(&root2, 9);
-//    BT_insertNode(&root2, 1);
-//    BT_insertNode(&root2, 4);
-    
-    bool ret = HasSubTree(root, root2);
-    cout << ret << endl;
-    
+//    BNTreeNode *root = nullptr;
+//
+//    BT_insertNode(&root, 5);
+//    BT_insertNode(&root, 3);
+//    BT_insertNode(&root, 7);
+//    BT_insertNode(&root, 1);
+//    BT_insertNode(&root, 4);
+//    BT_insertNode(&root, 6);
+//    BT_insertNode(&root, 9);
+//
+//    BT_InOrderRecursive(root);
+//    cout << endl;
+//    MirroTree(root);
+//
+//    BT_InOrderRecursive(root);
     
 //    BT_BFSTree(root);
     
@@ -330,9 +360,14 @@ int main(int argc, const char * argv[]) {
 //    BST_InsertNode(&root, 4);
 //    BST_InsertNode(&root, 6);
 //    BST_InsertNode(&root, 9);
-    
-    
 //    BSTreeNode *node = BST_SearchNoRecursive(root, 7);
+    int preOrder[1] = {5};
+    int inOrder[1] = {5};
+    
+    BNTreeNode *cRoot = ConstructTree2(preOrder, inOrder, 1); //ConstructTree(preOrder, preOrder+6, inOrder, inOrder+6);
+    BT_InOrderRecursive(cRoot);
     
     return 0;
 }
+ */
+
