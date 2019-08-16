@@ -46,7 +46,7 @@ int KthInArray(vector<int>&data, int left, int right, int k){
 
 //MARK:插入排序
 void InsertSort(int a[], int n) {
-    for (int j = 1; j < n; ++j) {//开始的时候把第1个元素作为有序组
+    for (int j = 1; j < n; ++j) {//开始的时候把a[0]作为有序组
         int k = a[j];//未排序的第一个数
         int i = j - 1;//有序的最后一个数的下标
         while (i >= 0 && k < a[i]) {//比k大的数都要后移
@@ -164,16 +164,14 @@ void MergSort(int a[], int left, int right) {
         int mid = (left + right) / 2;
         MergSort(a, left, mid);
         MergSort(a, mid+1, right);
+        cout << "start merge by left=" << left << "mid= " << mid << "right=" << right << endl;
         Merge(a,left,mid, right);
     } else {
-        cout << "returned by left == right" << endl;
+        cout << "returned by left == right =" << right << endl;
     }
 }
 
-
-
-
-
+/*
 int main(int argc, const char * argv[]) {
     int a[] = {3,1,2,4};
     int len = sizeof(a)/sizeof(int);
@@ -197,5 +195,5 @@ int main(int argc, const char * argv[]) {
 //    cout <<endl;
 //    
 }
-
+*/
 
