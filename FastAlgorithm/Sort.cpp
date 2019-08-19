@@ -44,20 +44,6 @@ int KthInArray(vector<int>&data, int left, int right, int k){
     }
 }
 
-//MARK:插入排序
-void InsertSort(int a[], int n) {
-    for (int j = 1; j < n; ++j) {//开始的时候把a[0]作为有序组
-        int k = a[j];//未排序的第一个数
-        int i = j - 1;//有序的最后一个数的下标
-        while (i >= 0 && k < a[i]) {//比k大的数都要后移
-            a[i+1] = a[i];
-            i--;
-            
-        }
-        a[i+1] = k;
-    }
-}
-
 //MARK:快速排序--挖坑填坑法,新坑填旧坑，支点填入最后一个坑
 //支点的选择是关键点，选最大火最小，会导致排序一边倒，性能受到影响
 //时间复杂度O(nlogn),空间复杂度O(1)
@@ -93,11 +79,11 @@ void BubbleSort2(int a[], int len) {
     for (int i = 0; i < len-1; i++) {
         bool isChanged = false;
         for (int j = 0; j < len-1-i; j++) {
-            if (a[j] > a[j+1]) {
+            if (a[j] > a[j+1]) {//逆序则交换
                 int temp = a[j+1];
                 a[j+1] = a[j];
                 a[j] = temp;
-                isChanged = true;
+                isChanged = true;// 本轮比较发生了交换
             }
         }
         if (!isChanged) {
@@ -109,9 +95,9 @@ void BubbleSort2(int a[], int len) {
 void BubbleSort(int a[], int len) {
     int temp = 0;
     int k = len;
-    int flag = k;//flag用于记录每次扫描发生交换的位置
+    int flag = k;//flag用于记录每轮扫描发生最后一次交换的位置
     while (flag > 0) {
-        k = flag;
+        k = flag;//flag后面的元素不用再比较了
         flag = 0;
         for (int j = 1; j < k; ++j) {
             if (a[j] < a[j-1]) {
@@ -121,6 +107,20 @@ void BubbleSort(int a[], int len) {
                 flag = j;//更新flag
             }
         }
+    }
+}
+
+//MARK:插入排序
+void InsertSort(int a[], int n) {
+    for (int j = 1; j < n; ++j) {//开始的时候把a[0]作为有序组
+        int k = a[j];//未排序的第一个数
+        int i = j - 1;//有序的最后一个数的下标
+        while (i >= 0 && k < a[i]) {//比k大的数都要后移
+            a[i+1] = a[i];
+            i--;
+            
+        }
+        a[i+1] = k;
     }
 }
 
