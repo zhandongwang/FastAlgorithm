@@ -117,10 +117,10 @@ public:
 };
 
 
-int main(int argc, const char * argv[]){
-    ArrayQueue queue = ArrayQueue();
-    queue.enqueue("1");
-    queue.enqueue("2");
-    queue.enqueue("3");
-    cout << queue.size();
-}
+//int main(int argc, const char * argv[]){
+//    ArrayQueue queue = ArrayQueue();
+//    queue.enqueue("1");
+//    queue.enqueue("2");
+//    queue.enqueue("3");
+//    cout << queue.size();
+//}

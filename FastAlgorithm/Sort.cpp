@@ -64,6 +64,24 @@ int partition(int a[], int left, int right) {
     return left;
 }
 
+int partion_2(int a[], int left, int right){
+    int pivot = a[right];
+    int j = left;
+    while (j < right) {
+        if (a[j]<pivot) {
+//            swap a[j] & a[left];
+            left = left + 1;
+        }
+    }
+    return 0;
+}
+
+void swapValue(int *i, int *j){
+    int temp = *i;
+    *i = *j;
+    *j = temp;
+}
+
 void QuickSort(int a[], int left, int right){
     if(left >= right){
         return;
@@ -171,16 +189,22 @@ void MergSort(int a[], int left, int right) {
     }
 }
 
-/*
+
 int main(int argc, const char * argv[]) {
-    int a[] = {3,1,2,4};
-    int len = sizeof(a)/sizeof(int);
-//    BubbleSort2(a, 9);
-    MergSort(a, 0, 3);
-    for (int i = 0; i < 4; ++i) {
-        cout << a[i] << " ";
-    }
-    cout << endl;
+    int a = 2;
+    int b = 3;
+    swapValue(&a, &b);
+    cout << a << b;
+    
+    
+//    int a[] = {3,1,2,4};
+//    int len = sizeof(a)/sizeof(int);
+////    BubbleSort2(a, 9);
+//    MergSort(a, 0, 3);
+//    for (int i = 0; i < 4; ++i) {
+//        cout << a[i] << " ";
+//    }
+//    cout << endl;
     
 //    vector<int>v = {2,1,4,9,6};
 //    cout << KthInArray(v, 0, 4, 4) <<endl;
@@ -195,5 +219,5 @@ int main(int argc, const char * argv[]) {
 //    cout <<endl;
 //    
 }
-*/
+
 
