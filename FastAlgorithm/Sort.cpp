@@ -11,6 +11,12 @@
 #include <vector>
 using namespace std;
 
+void swapValue(int *i, int *j){
+    int temp = *i;
+    *i = *j;
+    *j = temp;
+}
+
 //MARK:数组中的第K个最大元素
 // k-1个小于key的、len-k个大于Key的
 
@@ -45,7 +51,7 @@ int KthInArray(vector<int>&data, int left, int right, int k){
 }
 
 //MARK:快速排序--挖坑填坑法,新坑填旧坑，支点填入最后一个坑
-//支点的选择是关键点，选最大火最小，会导致排序一边倒，性能受到影响
+//支点的选择是关键点，选最大或最小，会导致排序一边倒，性能受到影响
 //时间复杂度O(nlogn),空间复杂度O(1)
 int partition(int a[], int left, int right) {
     int p = a[left];//选取第一个元素作为坑，并暂存其值
@@ -64,29 +70,24 @@ int partition(int a[], int left, int right) {
     return left;
 }
 
-int partion_2(int a[], int left, int right){
+int partition_2(int a[], int left, int right){
     int pivot = a[right];
     int j = left;
-    while (j < right) {
+    while (j <= right) {
         if (a[j]<pivot) {
-//            swap a[j] & a[left];
-            left = left + 1;
+            swapValue(&a[j], &a[left++]);
         }
+        j += 1;
     }
-    return 0;
-}
-
-void swapValue(int *i, int *j){
-    int temp = *i;
-    *i = *j;
-    *j = temp;
+    swapValue(&a[left], &a[right]);
+    return left;
 }
 
 void QuickSort(int a[], int left, int right){
     if(left >= right){
         return;
     }
-    int mid = partition(a, left, right);
+    int mid = partition_2(a, left, right);
     QuickSort(a, left, mid-1);
     QuickSort(a, mid+1, right);
 }
@@ -141,28 +142,26 @@ void InsertSort(int a[], int n) {
         a[i+1] = k;
     }
 }
-
+//MARK:归并排序
 void Merge(int a[], int left, int mid, int right) {
     int len1 = mid-left+1;
     int len2 = right-mid;
-    //存入原内容
     int *l1= new int[len1];
     int *l2= new int[len2];
-    
+    //copy原内容
     for (int i=0; i < len1; ++i) {
         l1[i] = a[left+i];
     }
     for (int j=0; j < len2; ++j) {
         l2[j] = a[j+mid+1];
     }
-    
+
     int i = 0, j = 0;
     while (i<len1 && j<len2) {
         if (l1[i] < l2[j]) {
             a[left++] = l1[i++];
         } else {
             a[left++] = l2[j++];
-            
         }
     }
     while (i<len1) {
@@ -171,53 +170,31 @@ void Merge(int a[], int left, int mid, int right) {
     while (j<len2) {
         a[left++] = l2[j++];
     }
-    
+
     delete [] l1;
     delete [] l2;
 }
 
-void MergSort(int a[], int left, int right) {
-    cout << "left=" << left << "right=" << right << endl;
-    if (left < right) {
-        int mid = (left + right) / 2;
-        MergSort(a, left, mid);
-        MergSort(a, mid+1, right);
-        cout << "start merge by left=" << left << "mid= " << mid << "right=" << right << endl;
-        Merge(a,left,mid, right);
-    } else {
-        cout << "returned by left == right =" << right << endl;
+void MergeSort(int a[], int left, int right) {
+    if (left >= right) {
+        return;
     }
+    int mid = (left + right) / 2;
+    MergeSort(a, left, mid);
+    MergeSort(a, mid+1, right);
+    Merge(a, left, mid, right);
 }
 
 
 int main(int argc, const char * argv[]) {
-    int a = 2;
-    int b = 3;
-    swapValue(&a, &b);
-    cout << a << b;
+
+    int a[] = {11,8,3,9,7,1,2,5};
+    MergeSort(a, 0, 7);
+    for (int i = 0; i < 8; ) {
+        cout << a[i++] << " ";
+    }
+    cout << endl;
     
-    
-//    int a[] = {3,1,2,4};
-//    int len = sizeof(a)/sizeof(int);
-////    BubbleSort2(a, 9);
-//    MergSort(a, 0, 3);
-//    for (int i = 0; i < 4; ++i) {
-//        cout << a[i] << " ";
-//    }
-//    cout << endl;
-    
-//    vector<int>v = {2,1,4,9,6};
-//    cout << KthInArray(v, 0, 4, 4) <<endl;
-////    BinaryS(array,5,1);
-//    int a[10] = {6,1,2,7,9, 3, 4, 5, 10, 8};
-////    quicksort(a, 0, 9);
-//    BubbleSort(a, 10);
-//    
-//    for (int i = 0; i < 10; ++i) {
-//        cout << a[i] << "\t";
-//    }
-//    cout <<endl;
-//    
 }
 
 
